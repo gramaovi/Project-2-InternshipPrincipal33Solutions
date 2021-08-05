@@ -10,7 +10,7 @@
 </head>
 
 
-<body onload="load()">
+<body>
 
   <div class="main_box">
 
@@ -25,10 +25,10 @@
         <input type="date" name="" id="date">
         <input type="file" name="" id="img_path"">
         <select class="sex" name="sex" id="sex" >
-            <option value="" disabled selected hidden>Sex</option>
+            <option value="sex" disabled selected hidden>Sex</option>
             <option value="des">Des</option>
             <option value="rar">Rar </option>
-            <option value="foarte_rar">Foarte rar</option>
+            <option value="foarte rar">Foarte rar</option>
             <option value="virgin"  >Virgin</option>
         </select>
         <input type="submit" name="" value="Add" onclick="addRow()">
@@ -40,12 +40,11 @@
             
             <table id="myTableData"   >
                 <tr>
-                    
+                    <td><b id="poza">Poza</b></td>
                     <td><b>Nume</b></td>
                     <td><b>Prenume</b></td>
                     <td><b>Email</b></td>
                     <td><b>Data</b></td>
-                    <td><b id="poza">Poza</b></td>
                     <td><b>Sex</b></td>
                     <td>&nbsp;</td>
                 </tr>
