@@ -5,6 +5,9 @@ function addRow() {
     var email = document.getElementById("email");
     var data = document.getElementById("date");
     var img_path = document.getElementById("img_path");
+
+    var select = document.getElementById('sex');
+    var sex_value = select.options[select.selectedIndex].value;
     var sex = document.getElementById("sex");
 
 
@@ -13,13 +16,14 @@ function addRow() {
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
  
-    row.insertCell(0).innerHTML= '<input type="button" value = "Delete" onClick="Javacsript:deleteRow(this)">';
-    row.insertCell(1).innerHTML= nume.value;
-    row.insertCell(2).innerHTML= prenume.value;
-    row.insertCell(3).innerHTML= email.value;
-    row.insertCell(4).innerHTML= data.value;
-    row.insertCell(5).innerHTML= "test";
-    row.insertCell(6).innerHTML= "test";
+
+    row.insertCell(0).innerHTML= nume.value;
+    row.insertCell(1).innerHTML= prenume.value;
+    row.insertCell(2).innerHTML= email.value;
+    row.insertCell(3).innerHTML= data.value;
+    row.insertCell(4).innerHTML= "test";
+    row.insertCell(5).innerHTML= sex_value;
+    row.insertCell(6).innerHTML= '<input type="button" value = " X " onClick="Javacsript:deleteRow(this)">';
   
 
  
