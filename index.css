@@ -28,7 +28,7 @@ body{
     text-transform: uppercase;
     font-weight: 700;
 }
-.box_input input[type="text"]
+.box_input input[type="text"],.box_input input[type="email"]
 {
     border:0;
     background: none;

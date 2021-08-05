@@ -63,9 +63,56 @@ for (var i = 0; i < elements.length; i++) {
 }
    
     else{
+
+        var dateFormat = new Date(data.value);
+var month = dateFormat.getMonth()+1;
+//var day=dateFormat.getUTCDay();
+var day=dateFormat.getDate();
+var year=dateFormat.getFullYear();
+switch(month){
+case 1:
+    month="Ianuarie";
+    break;
+case 2:
+    month="Februarie";
+    break;
+case 3:
+    month="Martie";
+    break;
+case 4:
+    month="Aprilie";
+    break;
+case 5:
+    month="Mai";
+    break;
+case 6:
+    month="Iunie";
+    break;
+case 7:
+    month="Iulie";
+    break;
+case 8:
+    month="August";
+    break;
+case 9:
+    month="Septembrie";
+    break;
+case 10:
+    month="Octombrie";
+    break;
+case 11:
+    month="Noiembrie";
+    break;
+case 12:
+    month="Decembrie";
+    break;
+}
+        var newDate=day+"-"+month+"-"+year;
+
+        console.log(month+1+" "+day+" "+year);
         console.log(sex_value);
+
         var table = document.getElementById("myTableData");
- 
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
      
@@ -73,7 +120,7 @@ for (var i = 0; i < elements.length; i++) {
         row.insertCell(1).innerHTML= nume.value;
         row.insertCell(2).innerHTML= prenume.value;
         row.insertCell(3).innerHTML= email.value;
-        row.insertCell(4).innerHTML= data.value;
+        row.insertCell(4).innerHTML= newDate;
         row.insertCell(5).innerHTML= sex_value;
         row.insertCell(6).innerHTML= '<input type="button" value = " X " onClick="Javacsript:deleteRow(this)">';
     }
