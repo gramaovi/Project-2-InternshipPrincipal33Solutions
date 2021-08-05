@@ -1,0 +1,121 @@
+body{
+    margin:0;
+    padding: 0;
+    font-family: sans-serif;
+    background: url(background.png);
+    background-size: cover;
+}
+.box_input{
+    width: 300px;
+    padding: 30px;
+    position: absolute;
+    top:40%;
+    left:15%;
+    transform: translate(-50%,-50%);
+    background:rgba(7, 16, 24, 0.4);
+    border-radius: 25px;
+    text-align:center;
+    color:white;
+}
+.box_input h1
+{
+
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.box_input input[type="text"]
+{
+    border:0;
+    background: none;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid #07679b;
+    padding:14px 10px;
+    width: 220px;
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+}
+.box_input input[type="text"]:focus
+{
+    width: 270px;
+    border-color:#ffc400ec;
+}
+.box_input input[type="submit"]
+{
+    border:0;
+    background:#07679b;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid ffc400ec;
+    padding:14px 35px;
+
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+    cursor: pointer;
+}
+.box_input input[type="submit"]:hover{
+    background: #A26BCC;
+}
+
+::placeholder{
+    color: wheat;
+}
+
+a{
+    color: turquoise;
+    text-decoration: none;
+}
+.logo{
+  padding: 5px;
+  margin-top: 10px;
+}
+.box_datas{
+    width:1000px;
+    padding: 30px;
+    position: absolute;
+    top:30%;
+    left:60%;
+    transform: translate(-50%,-50%);
+    background:rgba(7, 16, 24, 0.4);
+    border-radius: 25px;
+    text-align:center;
+    color:white;
+}
+.box_input input[type="date"]
+{
+
+    border:0;
+    background: none;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid #07679b;
+    padding:14px 10px;
+    width: 220px;
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+}
+.box_input input[type="file"]
+{
+
+    border:0;
+    background: none;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid #07679b;
+    padding:14px 10px;
+    width: 220px;
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+}
