@@ -15,30 +15,36 @@
   <div class="main_box">
 
   
-    <form class="box_input" " onsubmit="event.preventDefault()">
+    <form action="" class="box_input" " onsubmit="event.preventDefault() ">
         <h1>
             Employee
         </h1>
         <input type="text" name="" placeholder="Nume" id="nume">
         <input type="text" name="" placeholder="Prenume" id="prenume">
-        <input type="text" name="" placeholder="Email" id="email">
-        <input type="date" name="" id="date">
-        <input type="file" name="" id="img_path"">
-        <select class="sex" name="sex" id="sex" >
-            <option value="sex" disabled selected hidden>Sex</option>
+        <input type="text" name=""  placeholder="Email" id="email">
+        <input type="date" name="" value="2028-04-04" id="date" required>
+        <input type="file" name=""  accept="image/*"  required onchange="loadFile(event)">
+        <img id="output" src="nullSource" hidden />
+        <select class="sex" value=null name="sex" id="sex" required >
+            <option hidden disbaled value="">Sex</option>
             <option value="des">Des</option>
             <option value="rar">Rar </option>
             <option value="foarte rar">Foarte rar</option>
             <option value="virgin"  >Virgin</option>
+           
         </select>
-        <input type="submit" name="" value="Add" onclick="addRow()">
+
+       
+
+
+        <input type="submit" name="" value="Add" onclick="return addRow()" >
     
     </form>
     <div class="box_datas">
         
         <div class="tables" id="mydata">
             
-            <table id="myTableData"   >
+            <table id="myTableData"  >
                 <tr>
                     <td><b id="poza">Poza</b></td>
                     <td><b>Nume</b></td>
