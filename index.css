@@ -9,7 +9,7 @@ body{
     width: 300px;
     padding: 30px;
     position: absolute;
-    top:40%;
+    top:50%;
     left:15%;
     transform: translate(-50%,-50%);
     background:rgba(7, 16, 24, 0.4);
@@ -97,11 +97,12 @@ a{
   margin-top: 10px;
 }
 .box_datas{
-    width:1000px;
+    width:900px;
+    height: 500px;
     padding: 30px;
     position: absolute;
-    top:30%;
-    left:60%;
+    top:50%;
+    left:65%;
     transform: translate(-50%,-50%);
     background:rgba(7, 16, 24, 0.4);
     border-radius: 25px;
@@ -139,4 +140,24 @@ a{
     color:white;
     border-radius: 24px;
     transition: 0.25px;
+}
+
+#myTableData{
+    margin-top:12%;
+    margin-left:41%;
+}
+#myTableData b{
+    padding:40px 50px;
+    
+}
+
+.tables b{
+    
+    margin: 20px auto;
+    text-align:center;
+   
+    padding:14px 10px;
+    width: 220px;
+
+
 }
