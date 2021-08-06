@@ -28,7 +28,11 @@ body{
     text-transform: uppercase;
     font-weight: 700;
 }
-.box_input input[type="text"],.box_input input[type="email"]
+.box_input input[type="text"],
+.box_input input[type="email"],
+.box_input input[type="date"],
+.box_input input[type="file"],
+.sex
 {
     border:0;
     background: none;
@@ -42,6 +46,7 @@ body{
     color:white;
     border-radius: 24px;
     transition: 0.25px;
+   
 }
 .sex
 {
@@ -64,10 +69,15 @@ body{
     border-radius: 30%;
     box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
 } 
-.box_input input[type="text"]:focus
+.box_input input[type="text"]:focus,
+.box_input input[type="email"]:focus,
+.box_input input[type="date"]:focus,
+.box_input input[type="file"]:focus,
+.sex:focus
 {
     width: 270px;
     border-color:#ffc400ec;
+    
 }
 .box_input input[type="submit"]
 {
@@ -90,7 +100,7 @@ body{
 }
 
 ::placeholder{
-    color: wheat;
+    color: white;
 }
 
 a{
@@ -114,38 +124,7 @@ a{
     text-align:center;
     color:white;
 }
-.box_input input[type="date"]
-{
 
-    border:0;
-    background: none;
-    display:block;
-    margin: 20px auto;
-    text-align:center;
-    border: 3px solid #07679b;
-    padding:14px 10px;
-    width: 220px;
-    outline: none;
-    color:white;
-    border-radius: 24px;
-    transition: 0.25px;
-}
-.box_input input[type="file"]
-{
-
-    border:0;
-    background: none;
-    display:block;
-    margin: 20px auto;
-    text-align:center;
-    border: 3px solid #07679b;
-    padding:14px 10px;
-    width: 220px;
-    outline: none;
-    color:white;
-    border-radius: 24px;
-    transition: 0.25px;
-}
 .tables {
    
     position: relative;
@@ -160,4 +139,202 @@ a{
     max-width: 100%;
     max-height: 100%;
     padding-left: 60px;
+}
+
+@media (max-width: 1500px) {  
+    .box_input{
+        width: 250px;
+        padding: 30px;
+        position: absolute;
+        top:50%;
+        left:20%;
+        transform: translate(-50%,-50%);
+        background:rgba(7, 16, 24, 0.4);
+        border-radius: 25px;
+        text-align:center;
+        color:white;
+    }
+    .box_input input[type="text"]:focus,
+.box_input input[type="email"]:focus,
+.box_input input[type="date"]:focus,
+.box_input input[type="file"]:focus,
+.sex:focus
+{
+    width: 170px;
+    border-color:#ffc400ec;
+    
+}
+    .box_input input[type="text"],
+.box_input input[type="email"],
+.box_input input[type="date"],
+.box_input input[type="file"],
+.sex
+{
+    border:0;
+    background: none;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid #07679b;
+    padding:14px 10px;
+    width: 170px;
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+   
+}
+    .box_datas{
+        width:600px;
+        height: 500px;
+        padding: 30px;
+        position: absolute;
+        top:50%;
+        left:65%;
+        transform: translate(-50%,-50%);
+        background:rgba(7, 16, 24, 0.4);
+        border-radius: 25px;
+        text-align:center;
+        color:white;
+    }
+    .tables td{
+        max-width: 100%;
+        max-height: 100%;
+        padding:15px;
+    }
+    
+}
+@media (max-width: 1200px) {  
+    .box_input{
+        width: 200px;
+        padding: 30px;
+        position: absolute;
+        top:50%;
+        left:20%;
+        transform: translate(-50%,-50%);
+        background:rgba(7, 16, 24, 0.4);
+        border-radius: 25px;
+        text-align:center;
+        color:white;
+    }
+    .box_input input[type="text"]:focus,
+.box_input input[type="email"]:focus,
+.box_input input[type="date"]:focus,
+.box_input input[type="file"]:focus,
+.sex:focus
+{
+    width: 150px;
+    border-color:#ffc400ec;
+    
+}
+    .box_input input[type="text"],
+.box_input input[type="email"],
+.box_input input[type="date"],
+.box_input input[type="file"],
+.sex
+{
+    border:0;
+    background: none;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid #07679b;
+    padding:14px 10px;
+    width: 150px;
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+   
+}
+    .box_datas{
+        width:400px;
+        height: 500px;
+        padding: 30px;
+        position: absolute;
+        top:50%;
+        left:65%;
+        transform: translate(-50%,-50%);
+        background:rgba(7, 16, 24, 0.4);
+        border-radius: 25px;
+        text-align:center;
+        color:white;
+    }
+    .tables td{
+        max-width: 100%;
+        max-height: 100%;
+        
+        padding:0px;
+    }
+    
+}
+@media (max-width: 835px) {  
+    .box_input{
+        width: 200px;
+
+        padding: 30px;
+        position: absolute;
+        top:30%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        background:rgba(7, 16, 24, 0.4);
+        border-radius: 25px;
+        text-align:center;
+        color:yellow;
+    }
+    .box_input input[type="submit"]
+{
+    border:0;
+    background:#07679b;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid ffc400ec;
+    padding:5px 35px;
+
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+    cursor: pointer;
+}
+    .box_input input[type="text"],
+.box_input input[type="email"],
+.box_input input[type="date"],
+.box_input input[type="file"],
+.sex
+{
+    border:0;
+    background: none;
+    display:block;
+    margin: 20px auto;
+    text-align:center;
+    border: 3px solid #07679b;
+    padding:1px 10px;
+    width: 150px;
+    outline: none;
+    color:white;
+    border-radius: 24px;
+    transition: 0.25px;
+   
+}
+    .box_datas{
+        width:400px;
+        height: 500px;
+        padding: 30px;
+        position: absolute;
+        top:95%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        background:rgba(7, 16, 24, 0.4);
+        border-radius: 25px;
+        text-align:center;
+        color:white;
+    }
+    .tables td{
+        max-width: 100%;
+        max-height: 100%;
+        padding:0px;
+    }
+    
 }

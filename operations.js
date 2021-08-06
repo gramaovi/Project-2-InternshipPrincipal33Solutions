@@ -122,7 +122,7 @@ case 12:
         row.insertCell(3).innerHTML= email.value;
         row.insertCell(4).innerHTML= newDate;
         row.insertCell(5).innerHTML= sex_value;
-        row.insertCell(6).innerHTML= '<input type="button" value = " X " onClick="Javacsript:deleteRow(this)">';
+        row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
     }
     
   
