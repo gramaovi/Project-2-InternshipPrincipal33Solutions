@@ -1,8 +1,8 @@
 .main-box{
-
     height:100%;
     width: 100%;
 }
+
 body{
     margin:0;
     padding: 0;
@@ -10,6 +10,7 @@ body{
     background: url(background.png);
     background-size: cover;
 }
+
 .box_input{
     width: 300px;
     padding: 30px;
@@ -22,12 +23,14 @@ body{
     text-align:center;
     color:white;
 }
+
 .box_input h1
 {
 
     text-transform: uppercase;
     font-weight: 700;
 }
+
 .box_input input[type="text"],
 .box_input input[type="email"],
 .box_input input[type="date"],
@@ -48,6 +51,7 @@ body{
     transition: 0.25px;
    
 }
+
 .sex
 {
     border:0;
@@ -63,12 +67,14 @@ body{
     border-radius: 24px;
     transition: 0.25px;
 }
+
 .sex option {
     color:black;
     background:#07679b;
     border-radius: 30%;
     box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
 } 
+
 .box_input input[type="text"]:focus,
 .box_input input[type="email"]:focus,
 .box_input input[type="date"]:focus,
@@ -79,6 +85,7 @@ body{
     border-color:#ffc400ec;
     
 }
+
 .box_input input[type="submit"]
 {
     border:0;
@@ -95,6 +102,7 @@ body{
     transition: 0.25px;
     cursor: pointer;
 }
+
 .box_input input[type="submit"]:hover{
     background: #A26BCC;
 }
@@ -103,14 +111,6 @@ body{
     color: white;
 }
 
-a{
-    color: turquoise;
-    text-decoration: none;
-}
-.logo{
-  padding: 5px;
-  margin-top: 10px;
-}
 .box_datas{
     width:900px;
     height: 500px;
@@ -135,6 +135,7 @@ a{
     
     
 }
+
 .tables td{
     max-width: 100%;
     max-height: 100%;
@@ -154,36 +155,39 @@ a{
         text-align:center;
         color:white;
     }
+
     .box_input input[type="text"]:focus,
-.box_input input[type="email"]:focus,
-.box_input input[type="date"]:focus,
-.box_input input[type="file"]:focus,
-.sex:focus
-{
-    width: 170px;
-    border-color:#ffc400ec;
-    
-}
+    .box_input input[type="email"]:focus,
+    .box_input input[type="date"]:focus,
+    .box_input input[type="file"]:focus,
+    .sex:focus
+    {
+        width: 170px;
+        border-color:#ffc400ec;
+        
+    }
+
     .box_input input[type="text"],
-.box_input input[type="email"],
-.box_input input[type="date"],
-.box_input input[type="file"],
-.sex
-{
-    border:0;
-    background: none;
-    display:block;
-    margin: 20px auto;
-    text-align:center;
-    border: 3px solid #07679b;
-    padding:14px 10px;
-    width: 170px;
-    outline: none;
-    color:white;
-    border-radius: 24px;
-    transition: 0.25px;
-   
-}
+    .box_input input[type="email"],
+    .box_input input[type="date"],
+    .box_input input[type="file"],
+    .sex
+    {
+        border:0;
+        background: none;
+        display:block;
+        margin: 20px auto;
+        text-align:center;
+        border: 3px solid #07679b;
+        padding:14px 10px;
+        width: 170px;
+        outline: none;
+        color:white;
+        border-radius: 24px;
+        transition: 0.25px;
+    
+    }
+
     .box_datas{
         width:600px;
         height: 500px;
@@ -196,14 +200,16 @@ a{
         border-radius: 25px;
         text-align:center;
         color:white;
-    }
-    .tables td{
+        }
+
+        .tables td{
         max-width: 100%;
         max-height: 100%;
         padding:15px;
-    }
-    
+        }
+        
 }
+
 @media (max-width: 1200px) {  
     .box_input{
         width: 200px;
@@ -217,36 +223,39 @@ a{
         text-align:center;
         color:white;
     }
+
     .box_input input[type="text"]:focus,
-.box_input input[type="email"]:focus,
-.box_input input[type="date"]:focus,
-.box_input input[type="file"]:focus,
-.sex:focus
-{
-    width: 150px;
-    border-color:#ffc400ec;
-    
-}
+    .box_input input[type="email"]:focus,
+    .box_input input[type="date"]:focus,
+    .box_input input[type="file"]:focus,
+    .sex:focus
+    {
+        width: 150px;
+        border-color:#ffc400ec;
+        
+    }
+
     .box_input input[type="text"],
-.box_input input[type="email"],
-.box_input input[type="date"],
-.box_input input[type="file"],
-.sex
-{
-    border:0;
-    background: none;
-    display:block;
-    margin: 20px auto;
-    text-align:center;
-    border: 3px solid #07679b;
-    padding:14px 10px;
-    width: 150px;
-    outline: none;
-    color:white;
-    border-radius: 24px;
-    transition: 0.25px;
-   
-}
+    .box_input input[type="email"],
+    .box_input input[type="date"],
+    .box_input input[type="file"],
+    .sex
+    {
+        border:0;
+        background: none;
+        display:block;
+        margin: 20px auto;
+        text-align:center;
+        border: 3px solid #07679b;
+        padding:14px 10px;
+        width: 150px;
+        outline: none;
+        color:white;
+        border-radius: 24px;
+        transition: 0.25px;
+    
+    }
+
     .box_datas{
         width:400px;
         height: 500px;
@@ -260,18 +269,16 @@ a{
         text-align:center;
         color:white;
     }
+
     .tables td{
         max-width: 100%;
         max-height: 100%;
-        
         padding:0px;
-    }
-    
+    } 
 }
 @media (max-width: 835px) {  
     .box_input{
         width: 200px;
-
         padding: 30px;
         position: absolute;
         top:30%;
@@ -282,42 +289,44 @@ a{
         text-align:center;
         color:yellow;
     }
-    .box_input input[type="submit"]
-{
-    border:0;
-    background:#07679b;
-    display:block;
-    margin: 20px auto;
-    text-align:center;
-    border: 3px solid ffc400ec;
-    padding:5px 35px;
 
-    outline: none;
-    color:white;
-    border-radius: 24px;
-    transition: 0.25px;
-    cursor: pointer;
-}
+    .box_input input[type="submit"]{
+        border:0;
+        background:#07679b;
+        display:block;
+        margin: 20px auto;
+        text-align:center;
+        border: 3px solid ffc400ec;
+        padding:5px 35px;
+
+        outline: none;
+        color:white;
+        border-radius: 24px;
+        transition: 0.25px;
+        cursor: pointer;
+    }
+
     .box_input input[type="text"],
-.box_input input[type="email"],
-.box_input input[type="date"],
-.box_input input[type="file"],
-.sex
-{
-    border:0;
-    background: none;
-    display:block;
-    margin: 20px auto;
-    text-align:center;
-    border: 3px solid #07679b;
-    padding:1px 10px;
-    width: 150px;
-    outline: none;
-    color:white;
-    border-radius: 24px;
-    transition: 0.25px;
-   
-}
+    .box_input input[type="email"],
+    .box_input input[type="date"],
+    .box_input input[type="file"],
+    .sex
+    {
+        border:0;
+        background: none;
+        display:block;
+        margin: 20px auto;
+        text-align:center;
+        border: 3px solid #07679b;
+        padding:1px 10px;
+        width: 150px;
+        outline: none;
+        color:white;
+        border-radius: 24px;
+        transition: 0.25px;
+    
+    }
+
     .box_datas{
         width:400px;
         height: 500px;
@@ -331,10 +340,10 @@ a{
         text-align:center;
         color:white;
     }
+
     .tables td{
         max-width: 100%;
         max-height: 100%;
         padding:0px;
     }
-    
 }
