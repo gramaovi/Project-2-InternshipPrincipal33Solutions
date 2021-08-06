@@ -9,34 +9,35 @@
     <script type="text/javascript" src="operations.js"></script>
 </head>
 
-
 <body>
-
   <div class="main_box">
-
-  
     <form action="" class="box_input" " onsubmit="event.preventDefault() ">
-        
         <h1>
             Employee
         </h1>
-        <input type="text" name="" placeholder="Nume" id="nume"required>
-        <input type="text" name="" placeholder="Prenume" id="prenume"required>
-        <input type="email" name=""  placeholder="Email" id="email" required>
-        <input type="date" name="" value="2028-04-04" id="date" required>
-        <input type="file" name=""  accept="image/*"  required onchange="loadFile(event)">
+        <input type="text"  name=""  placeholder="Nume"    id="nume"required>
+        <input type="text"  name=""  placeholder="Prenume" id="prenume"required>
+        <input type="email" name=""  placeholder="Email"   id="email" required>
+        <input type="date"  name=""  value="2028-04-04"    id="date" required>
+        <input type="file"  name=""  accept="image/*" required onchange="loadFile(event)">
         <img id="output" src="nullSource" hidden />
         <select class="sex" value=null name="sex" id="sex" required >
-            <option hidden disbaled value="">Sex</option>
-            <option value="des">Des</option>
-            <option value="rar">Rar </option>
-            <option value="foarte rar">Foarte rar</option>
-            <option value="virgin"  >Virgin</option>
-           
+            <option hidden disbaled value="">
+                Sex
+            </option>
+            <option value="des">
+                Des
+            </option>
+            <option value="rar">
+                Rar
+             </option>
+            <option value="foarte rar">
+                Foarte rar
+            </option>
+            <option value="virgin">
+                Virgin
+            </option>
         </select>
-
-       
-
 
         <input type="submit" name="" value="Add" onclick="return addRow()" >
     
