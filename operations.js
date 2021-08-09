@@ -1,3 +1,5 @@
+
+
 var myListofArrays;
 
 var deletedArray;
@@ -7,18 +9,32 @@ function createArray()
     deletedArray=[];
     
 }
-function writeUserData() {
+function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
     
     var database = firebase.database();
-writeUserData2(1,"asd","asd","asd");
-}
-function writeUserData2(userId, name, email, imageUrl) {
     firebase.database().ref('users/' + userId).set({
-      username: name,
-      email: email,
-      profile_picture : imageUrl
+        profile_picture:img_path,
+        nume:nume,
+        prenume:prenume,
+        email: email,
+        bday:data,
+        sex:sex
+      });
+}
+function readData()
+{
+    var database = firebase.database();
+    const dbRef = firebase.database().ref();
+    dbRef.child("users").child(100).get().then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(Object.values(snapshot.val()));
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
     });
-  }
+}
 
 function logShowArray(arr)
 {
@@ -121,8 +137,15 @@ var loadFile = function(event){
     
     var array=[img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
+    writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
     deleteRows();
     addTableRows(myListofArrays);
+ }
+ function onLoad()
+ {
+     createArray();
+     config();
+     
  }
  /*
 function addRow() {
