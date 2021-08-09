@@ -23,11 +23,12 @@ function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
 }
 function readData()
 {
+    deleteRows();
     var database = firebase.database();
     const dbRef = firebase.database().ref();
     dbRef.child("users").child(100).get().then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(Object.values(snapshot.val()));
+        console.log(addTableRows2(Object.values(snapshot.val())));
       } else {
         console.log("No data available");
       }
@@ -35,7 +36,25 @@ function readData()
       console.error(error);
     });
 }
+function addTableRows2(element)
+{
+    var table = document.getElementById("myTableData");
+    
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        row.insertCell(0).innerHTML= '<td align="center"><img src=' 
+        + element[4]
+        + ' style="width:50px;border-radius: 50%;"></td>';
+        row.insertCell(1).innerHTML= element[2];
+        row.insertCell(2).innerHTML= element[3];
+        row.insertCell(3).innerHTML= element[1];
+        row.insertCell(4).innerHTML= element[0];
+        row.insertCell(5).innerHTML= element[5];
+        row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
+     
 
+
+}
 function logShowArray(arr)
 {
     arr.forEach((element) => {
