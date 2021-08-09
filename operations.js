@@ -1,4 +1,4 @@
-
+var actualEmail;
 var myListofArrays;
 
 var deletedArray;
@@ -25,26 +25,28 @@ function firestore_write(img_path, nume, prenume,email,data,sex)
 }
 function insertTable()
 {
+    deleteRows();
     var db = firebase.firestore();
 
     var usersRef = db.collection("users");
-var allex = exRef
+var allex = usersRef
   .get()
   .then(snapshot => {
     snapshot.forEach(doc => {
-        var EName = doc.data().Name;
-        var Type = doc.data().Type;
-        var BodyPart = doc.data(). BodyPart;
-        var Sets = doc.data().Sets;
-        const Image = doc.data().Image;
+        
+        //addTableRows2(Object.values(doc.data()));
+        var array=[doc.get("profile_picture"),doc.get("nume"),doc.get("prenume"),doc.get("email"),doc.get("bday"),doc.get("sex")];
+   
+         addTableRows2(array);
 
-        document.getElementById("ename").value = EName;   
+        //console.log(Object.values(doc.data()));
     });
   })
   .catch(err => {
     console.log('Error getting documents', err);
   });
 }
+
 function read_first_collection()
 {let db = firebase.firestore();
    // Create a reference to the cities collection
@@ -129,7 +131,9 @@ function readData()
 
     dbRef.child("users").child(100).get().then((snapshot) => {
       if (snapshot.exists()) {
-        addTableRows2(Object.values(snapshot.val()));
+        myListofArrays.push(snapshot.val());
+        logShowArray(myListofArrays);
+      //  addTableRows2(Object.values(snapshot.val()));
       } else {
         console.log("No data available");
       }
@@ -144,13 +148,14 @@ function addTableRows2(element)
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
         row.insertCell(0).innerHTML= '<td align="center"><img src=' 
-        + element[4]
+        + element[0]
         + ' style="width:50px;border-radius: 50%;"></td>';
-        row.insertCell(1).innerHTML= element[2];
-        row.insertCell(2).innerHTML= element[3];
-        row.insertCell(3).innerHTML= element[1];
-        row.insertCell(4).innerHTML= element[0];
+        row.insertCell(1).innerHTML= element[1];
+        row.insertCell(2).innerHTML= element[2];
+        row.insertCell(3).innerHTML= element[3];
+        row.insertCell(4).innerHTML= element[4];
         row.insertCell(5).innerHTML= element[5];
+        actualEmail=element[3];
         row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
      
 
@@ -176,7 +181,7 @@ function addTableRows(arr)
         row.insertCell(3).innerHTML= element[3];
         row.insertCell(4).innerHTML= element[4];
         row.insertCell(5).innerHTML= element[5];
-        row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
+        row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this,'+element[4]+')">';
      
     }
 );
@@ -260,7 +265,8 @@ var loadFile = function(event){
     //writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
     firestore_write(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value);
     deleteRows();
-    addTableRows(myListofArrays);
+    insertTable();
+  //  addTableRows(myListofArrays);
  }
  function onLoad()
  {
@@ -350,13 +356,22 @@ function array_search()
 
 }
 function deleteRow(obj) {
-     
-   
+    let db = firebase.firestore();
+    var currentRow=$(obj).closest("tr"); 
+    var col3=currentRow.find("td:eq(3)").text();
     var index = obj.parentNode.parentNode.rowIndex;
     var table = document.getElementById("myTableData");
+    
     table.deleteRow(index);
-    myListofArrays.splice(index-2,1);
-   logShowArray(myListofArrays);
+    
+    //console.log(col3);
+    db.collection("users").doc(col3).delete().then(() => {
+        console.log("Document successfully deleted!");
+    }).catch((error) => {
+        console.error("Error removing document: ", error);
+    });
+   // myListofArrays.splice(index-2,1);
+  // logShowArray(myListofArrays);
 
     
     
