@@ -6,7 +6,12 @@ function createArray()
     deletedArray=[];
     
 }
-
+function logShowArray(arr)
+{
+    arr.forEach((element) => {
+        console.log(element[0]+" "+element[1]+" "+element[2]+" "+element[3]+" "+element[4]+" "+element[5]);
+    });
+}
 function addTableRows(arr)
 {
     var table = document.getElementById("myTableData");
@@ -100,7 +105,7 @@ var loadFile = function(event){
 }
     var newDate=day+"-"+month+"-"+year;
     
-    var array=[img_path,nume.value,prenume.value,email.value,newDate,sex_value];
+    var array=[img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
     deleteRows();
     addTableRows(myListofArrays);
@@ -188,14 +193,14 @@ function array_search()
 }
 function deleteRow(obj) {
      
-   /* 
+   
     var index = obj.parentNode.parentNode.rowIndex;
     var table = document.getElementById("myTableData");
     table.deleteRow(index);
-    deletedArray=[table.rows[index].cells[1].innerHTML,table.rows[index].cells[2].innerHTML,table.rows[index].cells[3].innerHTML,table.rows[index].cells[4].innerHTML,table.rows[index].cells[5].innerHTML,table.rows[index].cells[6].innerHTML]
-    console.log(deletedArray.toString());
-    */
-    sortedArray_Nume();
+    myListofArrays.splice(index-2,1);
+   logShowArray(myListofArrays);
+
+    
     
 }
 function searchByKeywords()
@@ -245,6 +250,31 @@ function filteredArray_rar()
     })
     addTableRows(filteredArray);
 }
+function filteredArray_poza()
+{
+    deleteRows();
+    var filteredArray = myListofArrays.filter(poza => poza[0].length > 500);
+    addTableRows(filteredArray);
 
 
-
+}
+function filterArray_dates()
+{
+    var data_min= new Date('02/02/2020').toLocaleDateString();
+    var data_max= new Date('02/02/2030').toLocaleDateString();
+    Date()
+    deleteRows();
+    var filteredArray = myListofArrays.filter(function (item){
+        if(item[4] > data_min && item[4]<data_max)
+        return item[4];
+    })
+    addTableRows(filteredArray);
+}
+function filterByKeyword()
+{
+    deleteRows();
+    var filteredArray = myListofArrays.filter(function (item){
+        return item.includes("ovi");
+    })
+    addTableRows(filteredArray);
+}
