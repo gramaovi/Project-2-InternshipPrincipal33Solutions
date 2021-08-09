@@ -6,10 +6,15 @@
     <title> Employees </title>
     <link rel="stylesheet" href="index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
     <script type="text/javascript" src="operations.js"></script>
+    <script type="text/javascript" src="firebase_config.js"></script>
 </head>
 
-<body onload="createArray()">
+<body onload="config()">
+</script>
+
   <div class="main_box">
     <form action="" class="box_input" " onsubmit="event.preventDefault() ">
         <h1>
@@ -20,6 +25,7 @@
         <input type="email" name=""  placeholder="Email"   id="email" required>
         <input type="date"  name=""  value="2028-04-04"    id="date" required>
         <input type="file"  name=""  accept="image/*" required onchange="loadFile(event)">
+    
         <img id="output" src="nullSource" hidden />
         <select class="sex" value=null name="sex" id="sex" required >
             <option hidden disbaled value="">
@@ -46,6 +52,7 @@
         <input type="submit" name="" value="HasProfilePicture" onclick="return filteredArray_poza()" >
         <input type="submit" name="" value="FilterBetweenDates" onclick="return filterArray_dates()" >
         <input type="submit" name="" value="filterByKeyword" onclick="return filterByKeyword()" >
+        <input type="submit" name="" value="writedata" onclick="return writeUserData() ">
         
     
     </form>
