@@ -105,7 +105,7 @@ var loadFile = function(event){
 }
     var newDate=day+"-"+month+"-"+year;
     
-    var array=[img_path,nume.value,prenume.value,email.value,newDate,sex_value];
+    var array=[img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
     deleteRows();
     addTableRows(myListofArrays);
@@ -198,7 +198,7 @@ function deleteRow(obj) {
     var table = document.getElementById("myTableData");
     table.deleteRow(index);
     myListofArrays.splice(index-2,1);
-   // logShowArray(myListofArrays);
+   logShowArray(myListofArrays);
 
     
     
@@ -250,6 +250,31 @@ function filteredArray_rar()
     })
     addTableRows(filteredArray);
 }
+function filteredArray_poza()
+{
+    deleteRows();
+    var filteredArray = myListofArrays.filter(poza => poza[0].length > 500);
+    addTableRows(filteredArray);
 
 
-
+}
+function filterArray_dates()
+{
+    var data_min= new Date('02/02/2020').toLocaleDateString();
+    var data_max= new Date('02/02/2030').toLocaleDateString();
+    Date()
+    deleteRows();
+    var filteredArray = myListofArrays.filter(function (item){
+        if(item[4] > data_min && item[4]<data_max)
+        return item[4];
+    })
+    addTableRows(filteredArray);
+}
+function filterByKeyword()
+{
+    deleteRows();
+    var filteredArray = myListofArrays.filter(function (item){
+        return item.includes("ovi");
+    })
+    addTableRows(filteredArray);
+}
