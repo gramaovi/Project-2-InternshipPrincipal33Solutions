@@ -6,7 +6,12 @@ function createArray()
     deletedArray=[];
     
 }
-
+function logShowArray(arr)
+{
+    arr.forEach((element) => {
+        console.log(element[0]+" "+element[1]+" "+element[2]+" "+element[3]+" "+element[4]+" "+element[5]);
+    });
+}
 function addTableRows(arr)
 {
     var table = document.getElementById("myTableData");
@@ -188,14 +193,14 @@ function array_search()
 }
 function deleteRow(obj) {
      
-   /* 
+   
     var index = obj.parentNode.parentNode.rowIndex;
     var table = document.getElementById("myTableData");
     table.deleteRow(index);
-    deletedArray=[table.rows[index].cells[1].innerHTML,table.rows[index].cells[2].innerHTML,table.rows[index].cells[3].innerHTML,table.rows[index].cells[4].innerHTML,table.rows[index].cells[5].innerHTML,table.rows[index].cells[6].innerHTML]
-    console.log(deletedArray.toString());
-    */
-    sortedArray_Nume();
+    myListofArrays.splice(index-2,1);
+   // logShowArray(myListofArrays);
+
+    
     
 }
 function searchByKeywords()
