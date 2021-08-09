@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
     <script type="text/javascript" src="operations.js"></script>
     <script type="text/javascript" src="firebase_config.js"></script>
@@ -53,6 +54,9 @@
         <input type="submit" name="" value="FilterBetweenDates" onclick="return filterArray_dates()" >
         <input type="submit" name="" value="filterByKeyword" onclick="return filterByKeyword()" >
         <input type="submit" name="" value="readata" onclick="return readData() ">
+        <input type="submit" name="" value="readata" onclick="return create_first_collection()">
+        <input type="submit" name="" value="readata" onclick="return read_first_collection()">
+        
         
     
     </form>

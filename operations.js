@@ -1,5 +1,4 @@
 
-
 var myListofArrays;
 
 var deletedArray;
@@ -8,6 +7,62 @@ function createArray()
     myListofArrays = [];
     deletedArray=[];
     
+}
+function firestore_write(img_path, nume, prenume,email,data,sex)
+{
+    let db = firebase.firestore();
+    var citiesRef = db.collection("users");
+
+    citiesRef.doc(email).set({
+        profile_picture:img_path,
+        nume:nume,
+        prenume:prenume,
+        email: email,
+        bday:data,
+        sex:sex
+         });
+
+}
+function insertTable()
+{
+    var db = firebase.firestore();
+
+    var usersRef = db.collection("users");
+var allex = exRef
+  .get()
+  .then(snapshot => {
+    snapshot.forEach(doc => {
+        var EName = doc.data().Name;
+        var Type = doc.data().Type;
+        var BodyPart = doc.data(). BodyPart;
+        var Sets = doc.data().Sets;
+        const Image = doc.data().Image;
+
+        document.getElementById("ename").value = EName;   
+    });
+  })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
+}
+function read_first_collection()
+{let db = firebase.firestore();
+   // Create a reference to the cities collection
+var citiesRef = db.collection("cities");
+
+// Create a query against the collection.
+db.collection("cities").where("capital", "==", true)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+           
+      console.log(doc.id, " => ",  Object.values(doc.data()) );
+   
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
 }
 async function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
     
@@ -202,7 +257,8 @@ var loadFile = function(event){
     
     var array=[img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
-    writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
+    //writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
+    firestore_write(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value);
     deleteRows();
     addTableRows(myListofArrays);
  }
