@@ -6,14 +6,11 @@ function createArray()
     deletedArray=[];
     
 }
-function viewArray()
-{
 
-}
-function addTableRows(table)
+function addTableRows(arr)
 {
-   
-    myListofArrays.forEach((element) => {
+    var table = document.getElementById("myTableData");
+    arr.forEach((element) => {
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
         row.insertCell(0).innerHTML= '<td align="center"><img src=' 
@@ -30,9 +27,9 @@ function addTableRows(table)
 );
 
 }
-function deleteRows(table)
+function deleteRows()
 {
-
+    var table = document.getElementById("myTableData");
 while (table.rows.length > 1) {
     table.deleteRow(1);
   }
@@ -46,6 +43,69 @@ var loadFile = function(event){
         };
         reader.readAsDataURL(event.target.files[0]);
  };
+ function addRow()
+ {
+    var img_path=document.getElementById("output").src
+    var nume = document.getElementById("nume");
+    var prenume = document.getElementById("prenume");
+    var email = document.getElementById("email");
+    var data = document.getElementById("date");
+    
+
+    var select = document.getElementById('sex');
+    var sex_value = select.options[select.selectedIndex].value;
+    var dateFormat = new Date(data.value);
+    var month = dateFormat.getMonth()+1;
+    var day=dateFormat.getDate();
+    var year=dateFormat.getFullYear();
+
+    switch(month){
+        case 1:
+            month="Ianuarie";
+            break;
+        case 2:
+            month="Februarie";
+            break;
+        case 3:
+            month="Martie";
+            break;
+        case 4:
+            month="Aprilie";
+            break;
+        case 5:
+            month="Mai";
+            break;
+        case 6:
+            month="Iunie";
+            break;
+        case 7:
+            month="Iulie";
+            break;
+        case 8:
+            month="August";
+            break;
+        case 9:
+            month="Septembrie";
+            break;
+        case 10:
+            month="Octombrie";
+            break;
+        case 11:
+            month="Noiembrie";
+            break;
+        case 12:
+            month="Decembrie";
+            break;
+
+}
+    var newDate=day+"-"+month+"-"+year;
+    
+    var array=[img_path,nume.value,prenume.value,email.value,newDate,sex_value];
+    myListofArrays.push(array);
+    deleteRows();
+    addTableRows(myListofArrays);
+ }
+ /*
 function addRow() {
     
     var img_path=document.getElementById("output").src
@@ -121,6 +181,7 @@ function addRow() {
         addTableRows(table);
     }
 }
+*/
 function array_search()
 {
 
@@ -146,15 +207,44 @@ function searchByKeywords()
         })
       }
 }
+function Comparator_Nume(a, b) {
+    if (a[1] < b[1]) return -1;
+    if (a[1] > b[1]) return 1;
+    return 0;
+  }
 function sortedArray_Nume()
 {
-    var sortedArray = myListofArrays.sort(function(a, b) {
-        return b[1] - a[1];
-      });
+    deleteRows();
+    var sortedArray = Array.from(myListofArrays).sort(Comparator_Nume);
       sortedArray.forEach((element) => {
-          console.log(element[1]);
+      //   console.log(element[1]);
       }
       );
+      addTableRows(sortedArray);
 }
+function Comparator_Prenume(a, b) {
+    if (a[2] < b[2]) return -1;
+    if (a[2] > b[2]) return 1;
+    return 0;
+  }
+function sortedArray_Prenume()
+{
+    deleteRows();
+    var sortedArray = Array.from(myListofArrays).sort(Comparator_Prenume);
+      sortedArray.forEach((element) => {
+        // console.log(element[1]);
+      }
+      );
+      addTableRows(sortedArray);
+}
+function filteredArray_rar()
+{
+    deleteRows();
+    var filteredArray = myListofArrays.filter(function (item){
+        return item[5] == 'rar';
+    })
+    addTableRows(filteredArray);
+}
+
 
 
