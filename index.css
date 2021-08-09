@@ -5,8 +5,10 @@
 
 body{
     margin:0;
+    background-position:  ;
     padding: 0;
     font-family: sans-serif;
+    
     background: url(background.png);
     background-size: cover;
 }
