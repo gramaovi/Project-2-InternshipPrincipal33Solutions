@@ -9,10 +9,38 @@ function createArray()
     deletedArray=[];
     
 }
-function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
+async function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
+    
+    //let lastid = await getLastID()  ;
     
     var database = firebase.database();
-    firebase.database().ref('users/' + userId).set({
+    const dbRef = firebase.database().ref();
+    var lastid;
+    
+    dbRef.limitToLast(1).on('child_added', function(snapshot) {
+    
+         snapshot.forEach((child) =>  {
+          lastid=child.key;      
+       });
+       console.log(lastid);
+       lastid=parseInt(lastid);
+       lastid+=1;
+       firebase.database().ref('users/' + lastid).set({
+           profile_picture:img_path,
+           nume:nume,
+           prenume:prenume,
+           email: email,
+           bday:data,
+           sex:sex
+           
+         });
+       
+    });
+
+    console.log(lastid);
+    lastid=parseInt(lastid);
+    lastid+=1;
+    firebase.database().ref('users/' + 1).set({
         profile_picture:img_path,
         nume:nume,
         prenume:prenume,
@@ -21,25 +49,43 @@ function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
         sex:sex
       });
 }
+/*
+async function getLastID()
+{
+    var database = firebase.database();
+    const dbRef = firebase.database().ref();
+    var lastid;
+    dbRef.limitToLast(1).on('child_added', function(snapshot) {
+    
+         snapshot.forEach((child) =>  {
+          lastid=child.key;      
+       });
+       
+    });
+    return lastid;
+}
+*/
 function readData()
 {
+  
     deleteRows();
     var database = firebase.database();
     const dbRef = firebase.database().ref();
+
     dbRef.child("users").child(100).get().then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(addTableRows2(Object.values(snapshot.val())));
+        addTableRows2(Object.values(snapshot.val()));
       } else {
         console.log("No data available");
       }
     }).catch((error) => {
       console.error(error);
     });
+    
 }
 function addTableRows2(element)
 {
     var table = document.getElementById("myTableData");
-    
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
         row.insertCell(0).innerHTML= '<td align="center"><img src=' 
