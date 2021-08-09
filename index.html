@@ -9,7 +9,7 @@
     <script type="text/javascript" src="operations.js"></script>
 </head>
 
-<body>
+<body onload="createArray()">
   <div class="main_box">
     <form action="" class="box_input" " onsubmit="event.preventDefault() ">
         <h1>
@@ -40,6 +40,9 @@
         </select>
 
         <input type="submit" name="" value="Add" onclick="return addRow()" >
+        <input type="submit" name="" value="SortNume" onclick="return sortedArray_Nume()" >
+        <input type="submit" name="" value="sortPrenume" onclick="return sortedArray_Prenume()" >
+        <input type="submit" name="" value="filterRar" onclick="return filteredArray_rar()" >
     
     </form>
     <div class="box_datas">
