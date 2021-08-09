@@ -1,4 +1,5 @@
 var myListofArrays;
+
 var deletedArray;
 function createArray()
 {
@@ -6,6 +7,19 @@ function createArray()
     deletedArray=[];
     
 }
+function writeUserData() {
+    
+    var database = firebase.database();
+writeUserData2(1,"asd","asd","asd");
+}
+function writeUserData2(userId, name, email, imageUrl) {
+    firebase.database().ref('users/' + userId).set({
+      username: name,
+      email: email,
+      profile_picture : imageUrl
+    });
+  }
+
 function logShowArray(arr)
 {
     arr.forEach((element) => {

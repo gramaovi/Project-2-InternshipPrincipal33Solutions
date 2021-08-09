@@ -1,0 +1,22 @@
+{
+  "name": "employees",
+  "version": "1.0.0",
+  "description": "users",
+  "main": "operations.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gramaovi/Project-2-InternshipPrincipal33Solutions.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gramaovi/Project-2-InternshipPrincipal33Solutions/issues"
+  },
+  "homepage": "https://github.com/gramaovi/Project-2-InternshipPrincipal33Solutions#readme",
+  "dependencies": {
+    "firebase": "^8.9.0"
+  }
+}
