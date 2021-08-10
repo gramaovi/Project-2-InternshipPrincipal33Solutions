@@ -47,20 +47,51 @@
         </select>
 
         <input type="submit" name="" value="Add" onclick="return addRow()" >
-        <input type="submit" name="" value="SortNume" onclick="return sortedArray_Nume()" >
-        <input type="submit" name="" value="sortPrenume" onclick="return sortedArray_Prenume()" >
-        <input type="submit" name="" value="filtersex" onclick="return filteredArray_rar()" >
-        <input type="submit" name="" value="HasProfilePicture" onclick="return filteredArray_poza()" >
-        <input type="submit" name="" value="FilterBetweenDates" onclick="return filterArray_dates()" >
-        <input type="submit" name="" value="filterByKeyword" onclick="return filterByKeyword()" >
-        <input type="submit" name="" value="insertTable" onclick="return insertTable() ">
+    
+  
         
         
         
     
     </form>
     <div class="box_datas">
-        
+    <div class="functions">
+        <input type="submit" id="SortNume" name="" value="SortNume" onclick="return functions_checker().sortedAsc_Nume()" ondblclick="return functions_checker().sortedDesc_Nume()" >
+        <input type="submit" id="SortPrenume"name="" value="sortPrenume" onclick="return functions_checker().sortedAsc_Prenume()" ondblclick="return functions_checker().sortedDesc_Prenume()" >
+        <select class="sex_filter" value=null name="sex_filter" id="sex_filter" required >
+            <option hidden disbaled value="">
+                Sex
+            </option>
+            <option value="des">
+                Des
+            </option>
+            <option value="rar">
+                Rar
+             </option>
+            <option value="foarterar">
+                Foarte rar
+            </option>
+            <option value="virgin">
+                Virgin
+            </option>
+        </select>
+        <select class="has_picture" value=null name="has_picture" id="has_picture" required >
+            <option hidden disbaled value="">
+                With/Without Picture
+            </option>
+            <option value="with_p">
+                With picture
+            </option>
+            <option value="without_p">
+                Without picture
+             </option>
+           
+        </select>
+        <input type="date" name="" value="FilterBetweenDates" onclick="return filterArray_dates()" >
+        <input type="date" name="" value="filterByKeyword" onclick="return filterByKeyword()" >
+        <input type="text" name="" placeholder="Search by a keyword" onclick="return search_keyword()" >
+        <input type="submit" name="" value="Refresh" onclick="return insertTable() ">        
+    </div>
         <div class="tables" id="mydata">
             
             <table id="myTableData"  >
@@ -77,6 +108,9 @@
             &nbsp;
         </div>
     </div>
+    <form action="" class="box_functions">
+
+    </form>
 </div>
 </body>
 

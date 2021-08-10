@@ -1,7 +1,18 @@
 var actualEmail;
 var myListofArrays;
-var orderAsc;
 var deletedArray;
+var orderNumeAsc;
+var orderPrenumeAsc;
+var orderNumeDesc;
+var orderPrenumeDesc;
+var sex_rar;
+var sex_foarterar;
+var sex_des;
+var sex_virgin;
+var has_picture;
+var has_no_picture;
+var date_between_start;
+var date_between_end;
 function createArray()
 {
     myListofArrays = [];
@@ -23,6 +34,42 @@ function firestore_write(img_path, nume, prenume,email,data,sex)
          });
 
 }
+
+function functions_checker()
+{
+    var img_path=document.getElementById("output").src
+    var nume = document.getElementById("nume");
+    var prenume = document.getElementById("prenume");
+    var email = document.getElementById("email");
+    var data = document.getElementById("date");
+    
+    function sortedAsc_Nume()
+    {
+        orderNumeAsc=true;
+    }
+    function sortedAsc_Prenume()
+    {
+        orderPrenumeAsc=true;
+    }
+    function sortedDesc_Nume()
+    {
+        orderNumeDesc=true;
+    }
+    function sortedDesc_Prenume()
+    {
+        orderPrenumeDesc();
+    }
+
+    
+
+
+    var select = document.getElementById('sex');
+    var sex_value = select.options[select.selectedIndex].value;
+    var dateFormat = new Date(data.value);
+    var month = dateFormat.getMonth()+1;
+    var day=dateFormat.getDate();
+    var year=dateFormat.getFullYear();
+}
 function insertTable()
 {  
      var db = firebase.firestore();
@@ -30,13 +77,21 @@ function insertTable()
     //orderAsc=true;
     var usersRef = db.collection("users")
     
-    if(orderDesc==true)
+    if(orderNumeDesc==true)
     {
         usersRef=usersRef.orderBy('nume','desc');
     }
-    if(orderAsc==true)
+    if(orderNumeAsc==true)
     {
         usersRef=usersRef.orderBy('nume','asc');
+    }
+    if(orderPrenumeDesc==true)
+    {
+        usersRef=usersRef.orderBy('prenume','desc');
+    }
+    if(orderPrenumeAsc==true)
+    {
+        usersRef=usersRef.orderBy('prenume','asc');
     }
     if(sex_rar==true)
     {
@@ -68,13 +123,19 @@ function insertTable()
       usersRef=usersRef.where('nume', ">=", keyword)
       .where('nume', "<", keyword +'z');
     }
-    if(date_between==true)
+    if(date_between_start==true)
     {
         let start = new Date('7/10/2021');
-        let end = new Date('9/10/2021');
-        usersRef=usersRef.where('bday', '>', start)
-        .where('bday', '<', end);
+       
+        usersRef=usersRef.where('bday', '>', start);
+        
     }
+    if(date_between_end==true)
+    {
+        let end = new Date('9/10/2021');
+        usersRef=usersRef.where('bday', '<', end);
+    }
+
     usersRef.get()
     .then(snapshot => {
     snapshot.forEach(doc => {
