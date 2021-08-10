@@ -1,6 +1,6 @@
 var actualEmail;
 var myListofArrays;
-
+var orderAsc;
 var deletedArray;
 function createArray()
 {
@@ -24,14 +24,59 @@ function firestore_write(img_path, nume, prenume,email,data,sex)
 
 }
 function insertTable()
-{
+{  
+     var db = firebase.firestore();
     deleteRows();
-    var db = firebase.firestore();
-
-    var usersRef = db.collection("users");
-var allex = usersRef
-  .get()
-  .then(snapshot => {
+    //orderAsc=true;
+    var usersRef = db.collection("users")
+    
+    if(orderDesc==true)
+    {
+        usersRef=usersRef.orderBy('nume','desc');
+    }
+    if(orderAsc==true)
+    {
+        usersRef=usersRef.orderBy('nume','asc');
+    }
+    if(sex_rar==true)
+    {
+        usersRef=usersRef.where("sex", "==", rar)
+    }
+    if(sex_des==true)
+    {
+        usersRef=usersRef.where("sex", "==", des)
+    }
+    if(sex_foarterar==true)
+    {
+        usersRef=usersRef.where("sex", "==", foarterar)
+    }
+    if(sex_virgin==true)
+    {
+        usersRef=usersRef.where("sex", "==", virgin)
+    }
+    
+    if(has_picture==true)
+    {
+        usersRef=usersRef.where('profile_picture','!=','http://127.0.0.1:5500/nullSource');
+    }
+    if(has_no_picture==true)
+    {
+        usersRef=usersRef.where('profile_picture','==','http://127.0.0.1:5500/nullSource');
+    }
+    if(keyword_not_empty.length>0)
+    {
+      usersRef=usersRef.where('nume', ">=", keyword)
+      .where('nume', "<", keyword +'z');
+    }
+    if(date_between==true)
+    {
+        let start = new Date('7/10/2021');
+        let end = new Date('9/10/2021');
+        usersRef=usersRef.where('bday', '>', start)
+        .where('bday', '<', end);
+    }
+    usersRef.get()
+    .then(snapshot => {
     snapshot.forEach(doc => {
         
         //addTableRows2(Object.values(doc.data()));
@@ -47,7 +92,7 @@ var allex = usersRef
   });
 }
 
-function read_first_collection()
+function search_Keyword()
 {let db = firebase.firestore();
    // Create a reference to the cities collection
 var citiesRef = db.collection("cities");
