@@ -1,7 +1,22 @@
 var actualEmail;
 var myListofArrays;
-var orderAsc;
 var deletedArray;
+var orderNumeAsc;
+var orderPrenumeAsc;
+var orderNumeDesc;
+var orderPrenumeDesc;
+var sex_rar;
+var sex_foarterar;
+var sex_des;
+var sex_virgin;
+var has_picture;
+var has_no_picture;
+var date_between_start;
+var date_between_end;
+var keyword_not_empty;
+var keyword;
+var dateFormat_start;
+var dateFormat_end;
 function createArray()
 {
     myListofArrays = [];
@@ -23,36 +38,147 @@ function firestore_write(img_path, nume, prenume,email,data,sex)
          });
 
 }
+
+function functions_checker()
+{
+    
+    var search_keyword = document.getElementById("search_keyword");
+    
+    
+    var select = document.getElementById('sex_filter');
+    var sex_value = select.options[select.selectedIndex].value;   //sex value selected
+
+    var select2 = document.getElementById('has_picture');
+    var has_picture_value = select.options[select.selectedIndex].value;
+    var date_start = document.getElementById('date_start');
+    var date_end = document.getElementById('date_end');
+
+    function reset()
+    {
+        select.value="sex";
+        orderNumeAsc=false;
+        orderPrenumeAsc=false;
+        orderNumeDesc=false;
+        orderPrenumeDesc=false;
+        sex_rar=false;
+        sex_foarterar=false;
+        sex_des=false;
+        sex_virgin=false;
+        has_picture=false;
+        has_no_picture=false;
+        date_between_start=false;
+        date_between_end=false;
+        keyword_not_empty=false;
+    }
+    function sortedAsc_Nume()
+    {
+        orderNumeAsc=true;
+    }
+    function sortedAsc_Prenume()
+    {
+        orderPrenumeAsc=true;
+    }
+    function sortedDesc_Nume()
+    {
+        orderNumeDesc=true;
+    }
+    function sortedDesc_Prenume()
+    {
+        orderPrenumeDesc();
+        
+    }
+    
+    switch(sex_value)
+    {
+        case 'rar':
+            sex_rar=true;
+           // default:sex_rar=false;
+            return;
+        case 'foarterar':
+            sex_foarterar=true;
+            //default:sex_foarterar=false;
+            return;
+        case 'des':
+            sex_des=true;
+            //default:sex_des=false;
+            return;
+        case 'virgin':
+            sex_virgin=true;
+           // default:sex_virgin=false;
+            return;
+    }
+    
+  
+    switch(has_picture_value)
+    {
+        case 'with_p':
+            has_picture=true;
+          //  default:has_picture=false;
+            return;
+        case 'without_p':
+            has_no_picture=true;
+           // default:has_no_picture=false;
+            return;
+    }
+    if(search_keyword.length>0)
+    {
+        keyword_not_empty==true;
+        keyword=search_keyword.value;
+    }
+    if(date_start.value!=null)
+    {
+       // date_between_start=true;
+    }
+    if(date_end.value!=null)
+    {
+     //   date_between_end=true;
+    }
+     dateFormat_start = new Date(date_start.value);
+     dateFormat_end = new Date(date_end.value);
+ 
+
+   
+   
+}
 function insertTable()
-{  
+{   
+    functions_checker();
      var db = firebase.firestore();
     deleteRows();
     //orderAsc=true;
     var usersRef = db.collection("users")
     
-    if(orderDesc==true)
+    if(orderNumeDesc==true)
     {
         usersRef=usersRef.orderBy('nume','desc');
     }
-    if(orderAsc==true)
+    if(orderNumeAsc==true)
     {
         usersRef=usersRef.orderBy('nume','asc');
     }
+    if(orderPrenumeDesc==true)
+    {
+        usersRef=usersRef.orderBy('prenume','desc');
+    }
+    if(orderPrenumeAsc==true)
+    {
+        usersRef=usersRef.orderBy('prenume','asc');
+    }
     if(sex_rar==true)
     {
-        usersRef=usersRef.where("sex", "==", rar)
+        usersRef=usersRef.where("sex", "==", 'rar');
     }
     if(sex_des==true)
     {
-        usersRef=usersRef.where("sex", "==", des)
+        usersRef=usersRef.where("sex", "==", 'des');
     }
     if(sex_foarterar==true)
     {
-        usersRef=usersRef.where("sex", "==", foarterar)
+        usersRef=usersRef.where("sex", "==", 'foarterar');
     }
     if(sex_virgin==true)
     {
-        usersRef=usersRef.where("sex", "==", virgin)
+        usersRef=usersRef.where("sex", "==", 'virgin');
     }
     
     if(has_picture==true)
@@ -63,18 +189,24 @@ function insertTable()
     {
         usersRef=usersRef.where('profile_picture','==','http://127.0.0.1:5500/nullSource');
     }
-    if(keyword_not_empty.length>0)
+    if(keyword_not_empty==true)
     {
       usersRef=usersRef.where('nume', ">=", keyword)
       .where('nume', "<", keyword +'z');
     }
-    if(date_between==true)
+    if(date_between_start==true)
     {
         let start = new Date('7/10/2021');
-        let end = new Date('9/10/2021');
-        usersRef=usersRef.where('bday', '>', start)
-        .where('bday', '<', end);
+       
+        usersRef=usersRef.where('bday', '>', date_start);
+        
     }
+    if(date_between_end==true)
+    {
+        let end = new Date('9/10/2021');
+        usersRef=usersRef.where('bday', '<', date_end);
+    }
+
     usersRef.get()
     .then(snapshot => {
     snapshot.forEach(doc => {
@@ -91,7 +223,7 @@ function insertTable()
     console.log('Error getting documents', err);
   });
 }
-
+/*
 function search_Keyword()
 {let db = firebase.firestore();
    // Create a reference to the cities collection
@@ -111,6 +243,7 @@ db.collection("cities").where("capital", "==", true)
         console.log("Error getting documents: ", error);
     });
 }
+*/
 async function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
     
     //let lastid = await getLastID()  ;
