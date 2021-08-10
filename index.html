@@ -56,8 +56,8 @@
     </form>
     <div class="box_datas">
     <div class="functions">
-        <input type="submit" id="SortNume" name="" value="SortNume" onclick="return functions_checker().sortedAsc_Nume()" ondblclick="return functions_checker().sortedDesc_Nume()" >
-        <input type="submit" id="SortPrenume"name="" value="sortPrenume" onclick="return functions_checker().sortedAsc_Prenume()" ondblclick="return functions_checker().sortedDesc_Prenume()" >
+        <input type="submit" name="" value="SortNume" onclick="return functions_checker().sortedAsc_Nume()" ondblclick="return functions_checker().sortedDesc_Nume()" >
+        <input type="submit" name="" value="sortPrenume" onclick="return functions_checker().sortedAsc_Prenume()" ondblclick="return functions_checker().sortedDesc_Prenume()" >
         <select class="sex_filter" value=null name="sex_filter" id="sex_filter" required >
             <option hidden disbaled value="">
                 Sex
@@ -87,10 +87,10 @@
              </option>
            
         </select>
-        <input type="date" name="" value="FilterBetweenDates" onclick="return filterArray_dates()" >
-        <input type="date" name="" value="filterByKeyword" onclick="return filterByKeyword()" >
-        <input type="text" name="" placeholder="Search by a keyword" onclick="return search_keyword()" >
-        <input type="submit" name="" value="Refresh" onclick="return insertTable() ">        
+        <input type="date" name="" id="date_start" value="" onclick="return filterArray_dates()" >
+        <input type="date" name="" id="date_end" value="" onclick="return filterByKeyword()" >
+        <input type="text" id="search_keyword" name="" placeholder="Search by a keyword" onclick="" >
+        <input type="submit" name="" value="Refresh" onclick="return insertTable()" ondblclick ="return functions.checker().reset()">        
     </div>
         <div class="tables" id="mydata">
             
