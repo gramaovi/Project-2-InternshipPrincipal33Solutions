@@ -53,6 +53,8 @@ function reset()
   
     var select = document.getElementById('sex_filter');
     select.selectedIndex = 0;
+    var select2 = document.getElementById('has_picture');
+    select2.selectedIndex = 0;
    
    resetSort();
     sex_rar=false;
@@ -99,7 +101,7 @@ function functions_checker()
     var sex_value = select.options[select.selectedIndex].value;   //sex value selected
 
     var select2 = document.getElementById('has_picture');
-    var has_picture_value = select.options[select.selectedIndex].value;
+    var has_picture_value = select2.options[select2.selectedIndex].value;
     var date_start = document.getElementById('date_start');
     var date_end = document.getElementById('date_end');
 
@@ -129,6 +131,7 @@ function functions_checker()
   
     switch(has_picture_value)
     {
+
         case 'with_p':
             has_picture=true;
           //  default:has_picture=false;
@@ -138,7 +141,7 @@ function functions_checker()
            // default:has_no_picture=false;
             return;
     }
-
+   // alert(has_picture_value);
     if(search_keyword.value.length>0)
     {
         keyword_not_empty=true;
@@ -168,9 +171,9 @@ function insertTable()
     //orderAsc=true;
     var usersRef = db.collection("users")
     if(has_picture==true)
-        alert("haspicture");
+        //alert("haspicture");
     
-        alert(keyword);
+    //    alert(keyword);
     if(orderNumeDesc==true)
     {
         usersRef=usersRef.orderBy('nume','desc');
