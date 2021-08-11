@@ -139,9 +139,9 @@ function functions_checker()
             return;
     }
 
-    if(search_keyword.length>0)
+    if(search_keyword.value.length>0)
     {
-        keyword_not_empty==true;
+        keyword_not_empty=true;
         keyword=search_keyword.value;
     }
     if(date_start.value!=null)
@@ -168,8 +168,9 @@ function insertTable()
     //orderAsc=true;
     var usersRef = db.collection("users")
     if(has_picture==true)
-    alert("haspicture");
+        alert("haspicture");
     
+        alert(keyword);
     if(orderNumeDesc==true)
     {
         usersRef=usersRef.orderBy('nume','desc');
@@ -215,6 +216,7 @@ function insertTable()
     }
     if(keyword_not_empty==true)
     {
+        console.log(keyword);
       usersRef=usersRef.where('nume', ">=", keyword)
       .where('nume', "<", keyword +'z');
     }
