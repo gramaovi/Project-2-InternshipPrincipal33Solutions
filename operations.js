@@ -411,6 +411,25 @@ var loadFile = function(event){
         };
         reader.readAsDataURL(event.target.files[0]);
  };
+ function resetInputs()
+ {
+ 
+    var nume = document.getElementById("nume");
+    var prenume = document.getElementById("prenume");
+    var email = document.getElementById("email");
+    var select = document.getElementById('sex');
+    var data = document.getElementById("date");
+    var img_path=document.getElementById("output");
+    //img_path.src="nullSource";
+   // img_path.value="";
+    data.value="2028-04-04";
+    select.selectedIndex = 0;
+    nume.value="";
+    prenume.value="";
+    email.value="";
+
+  
+ }
  function addRow()
  {
     var img_path=document.getElementById("output").src
@@ -474,6 +493,9 @@ var loadFile = function(event){
     firestore_write(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value);
     deleteRows();
     insertTable();
+    
+    resetInputs();
+  //  console.log(img_path.src);
   //  addTableRows(myListofArrays);
  }
  function onLoad()
