@@ -1,26 +1,29 @@
 var actualEmail;
 var myListofArrays;
 var deletedArray;
-var orderNumeAsc;
-var orderPrenumeAsc;
-var orderNumeDesc;
-var orderPrenumeDesc;
-var sex_rar;
-var sex_foarterar;
-var sex_des;
-var sex_virgin;
-var has_picture;
-var has_no_picture;
-var date_between_start;
-var date_between_end;
+var orderNumeAsc=false;;
+var orderPrenumeAsc=false;;
+var orderNumeDesc=false;
+var orderPrenumeDesc=false;
+var sex_rar=false;
+var sex_foarterar=false;
+var sex_des=false;;
+var sex_virgin=false;
+var has_picture=false;
+var has_no_picture=false;
+var date_between_start=false;
+var date_between_end=false;
 var keyword_not_empty;
 var keyword;
 var dateFormat_start;
 var dateFormat_end;
+
+
 function createArray()
 {
     myListofArrays = [];
     deletedArray=[];
+    trueArray=[];
     
 }
 function firestore_write(img_path, nume, prenume,email,data,sex)
@@ -38,7 +41,54 @@ function firestore_write(img_path, nume, prenume,email,data,sex)
          });
 
 }
-
+function resetSort()
+{
+    orderNumeAsc=false;
+    orderPrenumeAsc=false;
+    orderNumeDesc=false;
+    orderPrenumeDesc=false;
+}
+function reset()
+{
+  
+    var select = document.getElementById('sex_filter');
+    select.selectedIndex = 0;
+   
+   resetSort();
+    sex_rar=false;
+    sex_foarterar=false;
+    sex_des=false;
+    sex_virgin=false;
+    has_picture=false;
+    has_no_picture=false;
+    date_between_start=false;
+    date_between_end=false;
+    keyword_not_empty=false;
+}
+function sortedAsc_Nume()
+{
+    resetSort();
+    alert("Sorting by Nume ASC")
+    orderNumeAsc=true;
+}
+function sortedAsc_Prenume()
+{
+    resetSort();
+    alert("Sorting by Prenume ASC")
+    orderPrenumeAsc=true;
+}
+function sortedDesc_Nume()
+{
+    resetSort();
+    alert("Sorting by Nume DESC")
+    orderNumeDesc=true;
+}
+function sortedDesc_Prenume()
+{
+    resetSort();
+    alert("Sorting by Prenume DESC")
+    orderPrenumeDesc=true;
+}
 function functions_checker()
 {
     
@@ -53,40 +103,8 @@ function functions_checker()
     var date_start = document.getElementById('date_start');
     var date_end = document.getElementById('date_end');
 
-    function reset()
-    {
-        select.value="sex";
-        orderNumeAsc=false;
-        orderPrenumeAsc=false;
-        orderNumeDesc=false;
-        orderPrenumeDesc=false;
-        sex_rar=false;
-        sex_foarterar=false;
-        sex_des=false;
-        sex_virgin=false;
-        has_picture=false;
-        has_no_picture=false;
-        date_between_start=false;
-        date_between_end=false;
-        keyword_not_empty=false;
-    }
-    function sortedAsc_Nume()
-    {
-        orderNumeAsc=true;
-    }
-    function sortedAsc_Prenume()
-    {
-        orderPrenumeAsc=true;
-    }
-    function sortedDesc_Nume()
-    {
-        orderNumeDesc=true;
-    }
-    function sortedDesc_Prenume()
-    {
-        orderPrenumeDesc();
-        
-    }
+   
+  
     
     switch(sex_value)
     {
@@ -120,6 +138,7 @@ function functions_checker()
            // default:has_no_picture=false;
             return;
     }
+
     if(search_keyword.length>0)
     {
         keyword_not_empty==true;
@@ -142,11 +161,14 @@ function functions_checker()
 }
 function insertTable()
 {   
+    
     functions_checker();
-     var db = firebase.firestore();
+    var db = firebase.firestore();
     deleteRows();
     //orderAsc=true;
     var usersRef = db.collection("users")
+    if(has_picture==true)
+    alert("haspicture");
     
     if(orderNumeDesc==true)
     {
@@ -164,6 +186,8 @@ function insertTable()
     {
         usersRef=usersRef.orderBy('prenume','asc');
     }
+    
+    console.log(orderNumeAsc+" "+orderNumeDesc+" "+orderPrenumeAsc+" "+orderPrenumeDesc)
     if(sex_rar==true)
     {
         usersRef=usersRef.where("sex", "==", 'rar');
@@ -180,7 +204,7 @@ function insertTable()
     {
         usersRef=usersRef.where("sex", "==", 'virgin');
     }
-    
+   
     if(has_picture==true)
     {
         usersRef=usersRef.where('profile_picture','!=','http://127.0.0.1:5500/nullSource');
@@ -213,7 +237,7 @@ function insertTable()
         
         //addTableRows2(Object.values(doc.data()));
         var array=[doc.get("profile_picture"),doc.get("nume"),doc.get("prenume"),doc.get("email"),doc.get("bday"),doc.get("sex")];
-   
+  // console.log(doc.get("profile_picture"));
          addTableRows2(array);
 
         //console.log(Object.values(doc.data()));
@@ -222,6 +246,7 @@ function insertTable()
   .catch(err => {
     console.log('Error getting documents', err);
   });
+  reset();
 }
 /*
 function search_Keyword()
@@ -257,7 +282,7 @@ async function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
          snapshot.forEach((child) =>  {
           lastid=child.key;      
        });
-       console.log(lastid);
+       //console.log(lastid);
        lastid=parseInt(lastid);
        lastid+=1;
        firebase.database().ref('users/' + lastid).set({
@@ -272,7 +297,7 @@ async function writeUserData(img_path, nume, prenume,email,data,sex,userId) {
        
     });
 
-    console.log(lastid);
+//console.log(lastid);
     lastid=parseInt(lastid);
     lastid+=1;
     firebase.database().ref('users/' + 1).set({
@@ -450,8 +475,75 @@ var loadFile = function(event){
  {
      createArray();
      config();
-     
- }
+     const sortNume = document.getElementById('sortNume');
+     const sortPrenume = document.getElementById('sortPrenume');
+     const refresh = document.getElementById('refresh');
+/*
+     //--sort event handlers
+     const sortNume = document.getElementById('sortNume');
+     sortNume.oncontextmenu = function(e) {
+        sortedDesc_Nume();
+        e.preventDefault();
+      }          
+    sortNume.addEventListener('click',sortedAsc_Nume);
+
+    const sortPrenume = document.getElementById('sortPrenume');
+    sortPrenume.oncontextmenu = function(e) {
+    sortedDesc_Prenume();
+    e.preventDefault();
+    }          
+    sortPrenume.addEventListener('click',sortedAsc_Prenume);
+      //--sort event handlers*/
+
+var clickCount = 0;
+
+sortNume.addEventListener('click', function() {
+    clickCount++;
+        if (clickCount === 1) {
+            singleClickTimer = setTimeout(function() {
+                clickCount = 0;
+                sortedAsc_Nume();
+            }, 200);
+        } else if (clickCount === 2) {
+            clearTimeout(singleClickTimer);
+            clickCount = 0;
+            sortedDesc_Nume();
+        }
+    }, false);
+ 
+ sortPrenume.addEventListener('click', function() {
+    clickCount++;
+        if (clickCount === 1) {
+            singleClickTimer = setTimeout(function() {
+                clickCount = 0;
+                sortedAsc_Prenume();
+            }, 200);
+        } else if (clickCount === 2) {
+            clearTimeout(singleClickTimer);
+            clickCount = 0;
+            sortedDesc_Prenume();
+        }
+    }, false);
+
+    refresh.addEventListener('click', function() {
+        clickCount++;
+            if (clickCount === 1) {
+                singleClickTimer = setTimeout(function() {
+                    clickCount = 0;
+                    insertTable();
+                }, 200);
+            } else if (clickCount === 2) {
+                clearTimeout(singleClickTimer);
+                clickCount = 0;
+                reset();
+                alert("RESET!");
+            }
+        }, false);
+}
+//--sort event handlers
+ 
+
+ 
  /*
 function addRow() {
     

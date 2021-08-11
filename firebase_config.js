@@ -1,6 +1,6 @@
 function config()
 {
-    var firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyCk91d8DqyK6jHg_j_NPoQymSrROWotOiE",
   authDomain: "employees-ea1e9.firebaseapp.com",
   projectId: "employees-ea1e9",
@@ -10,4 +10,5 @@ function config()
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 }
