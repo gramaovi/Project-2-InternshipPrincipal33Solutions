@@ -422,6 +422,7 @@ function logShowArray(arr)
         console.log(element[0]+" "+element[1]+" "+element[2]+" "+element[3]+" "+element[4]+" "+element[5]);
     });
 }
+/*
 function addTableRows(arr)
 {
     var table = document.getElementById("myTableData");
@@ -440,7 +441,7 @@ function addTableRows(arr)
      
     }
 );
-
+*/
 }
 function deleteRows()
 {
@@ -503,8 +504,10 @@ var loadFile = function(event){
  }
  function onLoad()
  {
+    
      createArray();
      config();
+     insertTable();
      const sortNume = document.getElementById('sortNume');
      const sortPrenume = document.getElementById('sortPrenume');
      const refresh = document.getElementById('refresh');
@@ -676,6 +679,7 @@ function deleteRow(obj) {
     
     
 }
+
 function searchByKeywords()
 {
 
