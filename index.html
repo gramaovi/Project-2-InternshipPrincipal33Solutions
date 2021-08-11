@@ -1,4 +1,4 @@
-form<!DOCTYPE html>
+<!DOCTYPE html>
 <html lan="eng" and dir="Itr">
 
 
@@ -13,6 +13,7 @@ form<!DOCTYPE html>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-storage.js"></script>
     <script type="text/javascript" src="operations.js"></script>
     <script type="text/javascript" src="firebase_config.js"></script>
+    <script type="text/javascript" src="imageUpload.js"></script>
 </head>
 
 <body onload="onLoad()">
@@ -27,8 +28,9 @@ form<!DOCTYPE html>
         <input type="text"  name=""  placeholder="Prenume" id="prenume"required>
         <input type="email" name=""  placeholder="Email"   id="email" required>
         <input type="date"  name=""  value="2028-04-04"    id="date" required>
-        <input type="file"  name=""  accept="image/*" required onchange="loadFile(event)">
-        <img id="imgPreview"><label id="upGrogress"></label><br>
+       <!-- <input type="file"  name=""  accept="image/*" required onchange="loadFile(event)"> -->
+        <button  id="selectImg">Select image</button>
+        <img id="imgPreview" ><label id="upProgress"></label><br>
         <img id="output" src="nullSource" hidden />
         
         <select class="sex" value=null name="sex" id="sex" required >
@@ -49,7 +51,7 @@ form<!DOCTYPE html>
             </option>
         </select>
 
-        <input type="submit" name="" value="Add" onclick="return addRow()" >
+        <input type="submit"id="addData" name="" value="Add" onclick="return addRow()" >
     
   
         

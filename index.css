@@ -129,7 +129,9 @@ body{
     
 }
 
-.box_input input[type="submit"]
+.box_input input[type="submit"],
+.box_input input[type="input"],
+.box_input button
 {
     border:0;
     background:#07679b;
@@ -146,7 +148,9 @@ body{
     cursor: pointer;
 }
 
-.box_input input[type="submit"]:hover{
+.box_input input[type="submit"]:hover,
+.box_input button:hover
+{
     background: #A26BCC;
 }
 
@@ -337,7 +341,8 @@ body{
         color:yellow;
     }
 
-    .box_input input[type="submit"]{
+    .box_input input[type="submit"]
+    {
         border:0;
         background:#07679b;
         display:block;

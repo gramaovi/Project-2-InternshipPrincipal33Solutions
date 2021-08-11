@@ -460,7 +460,10 @@ var loadFile = function(event){
     var select = document.getElementById('sex');
     var sex_value = select.options[select.selectedIndex].value;
     
-
+    uploadImage(email.value);
+    const imgPath = await getImage();
+    console.log(imgPath);
+    
     var array=[img_path,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
     //writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
@@ -498,6 +501,7 @@ var loadFile = function(event){
     
      createArray();
      config();
+     onLoadImg();
      insertTable();
      const sortNume = document.getElementById('sortNume');
      const sortPrenume = document.getElementById('sortPrenume');
