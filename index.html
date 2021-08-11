@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+form<!DOCTYPE html>
 <html lan="eng" and dir="Itr">
 
 
@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-storage.js"></script>
     <script type="text/javascript" src="operations.js"></script>
     <script type="text/javascript" src="firebase_config.js"></script>
 </head>
@@ -27,8 +28,9 @@
         <input type="email" name=""  placeholder="Email"   id="email" required>
         <input type="date"  name=""  value="2028-04-04"    id="date" required>
         <input type="file"  name=""  accept="image/*" required onchange="loadFile(event)">
-    
+        <img id="imgPreview"><label id="upGrogress"></label><br>
         <img id="output" src="nullSource" hidden />
+        
         <select class="sex" value=null name="sex" id="sex" required >
             <option hidden disbaled value="">
                 Sex
@@ -55,6 +57,7 @@
         
     
     </form>
+    
     <div class="box_datas">
     <div class="functions">
         <input type="submit" id="sortNume" name="" value="SortNume" >

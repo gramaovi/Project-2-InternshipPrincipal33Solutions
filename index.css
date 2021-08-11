@@ -84,6 +84,13 @@ body{
     border-radius: 24px;
     transition: 0.25px;
 }
+#imgPreview
+{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border:1px solid #A26BCC;
+}
 .sex
 {
     border:0;
