@@ -352,6 +352,53 @@ function readData()
 }
 function addTableRows2(element)
 {
+    var dateFormat = new Date(element[4]);
+    var month = dateFormat.getMonth()+1;
+    var day=dateFormat.getDate();
+    var year=dateFormat.getFullYear();
+
+    switch(month){
+        case 1:
+            month="Ianuarie";
+            break;
+        case 2:
+            month="Februarie";
+            break;
+        case 3:
+            month="Martie";
+            break;
+        case 4:
+            month="Aprilie";
+            break;
+        case 5:
+            month="Mai";
+            break;
+        case 6:
+            month="Iunie";
+            break;
+        case 7:
+            month="Iulie";
+            break;
+        case 8:
+            month="August";
+            break;
+        case 9:
+            month="Septembrie";
+            break;
+        case 10:
+            month="Octombrie";
+            break;
+        case 11:
+            month="Noiembrie";
+            break;
+        case 12:
+            month="Decembrie";
+            break;
+
+}
+
+    var newDate=day+"-"+month+"-"+year;
+    
     var table = document.getElementById("myTableData");
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
@@ -361,7 +408,7 @@ function addTableRows2(element)
         row.insertCell(1).innerHTML= element[1];
         row.insertCell(2).innerHTML= element[2];
         row.insertCell(3).innerHTML= element[3];
-        row.insertCell(4).innerHTML= element[4];
+        row.insertCell(4).innerHTML= newDate;
         row.insertCell(5).innerHTML= element[5];
         actualEmail=element[3];
         row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
@@ -441,56 +488,12 @@ var loadFile = function(event){
 
     var select = document.getElementById('sex');
     var sex_value = select.options[select.selectedIndex].value;
-    var dateFormat = new Date(data.value);
-    var month = dateFormat.getMonth()+1;
-    var day=dateFormat.getDate();
-    var year=dateFormat.getFullYear();
+  
 
-    switch(month){
-        case 1:
-            month="Ianuarie";
-            break;
-        case 2:
-            month="Februarie";
-            break;
-        case 3:
-            month="Martie";
-            break;
-        case 4:
-            month="Aprilie";
-            break;
-        case 5:
-            month="Mai";
-            break;
-        case 6:
-            month="Iunie";
-            break;
-        case 7:
-            month="Iulie";
-            break;
-        case 8:
-            month="August";
-            break;
-        case 9:
-            month="Septembrie";
-            break;
-        case 10:
-            month="Octombrie";
-            break;
-        case 11:
-            month="Noiembrie";
-            break;
-        case 12:
-            month="Decembrie";
-            break;
-
-}
-    var newDate=day+"-"+month+"-"+year;
-    
-    var array=[img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value];
+    var array=[img_path,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
     //writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
-    firestore_write(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value);
+    firestore_write(img_path,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value);
     deleteRows();
     insertTable();
     
