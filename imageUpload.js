@@ -29,60 +29,58 @@ async function uploadImage(mystring)
     email=email.replace('.','');
     
     
-     var uploadTask=firebase.storage().ref('ProfilePicture/'+email+".png").put(files[0]);
-         uploadTask.on('state_changed', function(snapshot)
-        { 
-            var progress=(snapshot.bytesTransferred / snapshot.totalBytes)*100;
-            document.getElementById('upProgress').innerHTML='Uploaded' + progress +"%";
-        },
-          function(error)
-        {
-            alert("Error save");
-        },
-          function()
-        {
-          uploadTask.snapshot.ref.getDownloadURL().then( async url =>
-            {
+     var uploadTask=await firebase.storage().ref('ProfilePicture/'+email).put(files[0]);
 
-                const ImgUrl=await url;
-                console.log(ImgUrl);
-                
-                var db = firebase.firestore();
-                var usersRef = db.collection("Pictures");
-                usersRef.doc("ProfilePicture").set({
-                    email:email,
-                    profile_picture:ImgUrl
-                     });
-            
-            
-                alert("Image added succesfully");
-            });
-        });
-    return  ImgUrl;
+     
+return uploadTask;
 
+}
+async function uploadUrl(uploadTask,mystring)
+{
+    var email=mystring;
+    email=email.replace('@','');
+    email=email.replace('.','');
+
+   //console.log(uploadTask);
+ const url=await uploadTask.ref.getDownloadURL()
+
+    
+        
+        var db = firebase.firestore();
+        var usersRef = db.collection("Pictures");
+        usersRef.doc(email).set({
+            profile_picture:url
+             });
+    
+    
+        alert("Image added succesfully");
+    
 }
 async function getImage(mystring)
 {
+    var link;
     var email=mystring;
     email=email.replace('@','');
     email=email.replace('.','');
     var db = firebase.firestore();
     
-    var imgpathRef =await  db.collection("Pictures").where("email","==",email);
+    var imgpathRefAsync = await  db.collection("Pictures").doc(email).get();
     
-     imgpathRef.get("ProfilePicture")
+    let imgPathRef = imgpathRefAsync.data().profile_picture;
+    console.log(imgpathRefAsync.data().profile_picture);
+    return imgPathRef;
     
-    .then(snapshot => {
-    snapshot.forEach(doc => {
+    // .then(snapshot => {
+    // snapshot.forEach(doc => {
        
-        nullimgpath=doc.get("profile_picture");
-        console.log(nullimgpath);
-    });
-    })
-    .catch(err => {
-        console.log('Error getting documents', err);
-    });
-
+    //     link=doc.get("profile_picture");
+    //     console.log(new String(link).toString()) ;
+    // });
+    // })
+    // .catch(err => {
+    //     console.log('Error getting documents', err);
+    // });
+    // return new String(link).toString();
     
     
 }

@@ -201,7 +201,7 @@ async function readNullImagePath()
 }
 async function insertTable()
 {   
-    
+   
     functions_checker();
     var db = firebase.firestore();
     deleteRows();
@@ -277,16 +277,17 @@ async function insertTable()
         let end = new Date('9/10/2021');
         usersRef=usersRef.where('bday', '<', date_end);
     }
-var test;
+
     usersRef.get()
     .then(snapshot => {
-    snapshot.forEach(doc => {
-        
+    snapshot.forEach(async doc => {
+        const getlink=await getImage(doc.get("email"));
         //addTableRows2(Object.values(doc.data()));
-        var array=[doc.get("profile_picture"),doc.get("nume"),doc.get("prenume"),doc.get("email"),doc.get("bday"),doc.get("sex")];
+        console.log("test"+getlink);
+        var array=[getlink,doc.get("nume"),doc.get("prenume"),doc.get("email"),doc.get("bday"),doc.get("sex")];
   // console.log(doc.get("profile_picture"));
          addTableRows2(array);
-         test=doc.get("prenume");
+         
          if(doc.get("email")=="test@test.com")
          {
             
@@ -358,29 +359,34 @@ async function addTableRows2(element)
         case 12:
             month="Decembrie";
             break;
+    }
 
-}
-var newDate=day+"-"+month+"-"+year;
-    
-var table = document.getElementById("myTableData");
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-
-const nullPath = await readNullImagePath();
-actualEmail=element[3];
-//setTimeout(function(){ console.log(getImage(actualEmail)); }, 5000);
+    var newDate=day+"-"+month+"-"+year;
+        
+    var table = document.getElementById("myTableData");
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
 
 
-    row.insertCell(0).innerHTML= '<td align="center"><img src=' 
-    + element[0]
-    + ' style="width:50px;border-radius: 50%;"></td>';
-    row.insertCell(1).innerHTML= element[1];
-    row.insertCell(2).innerHTML= element[2];
-    row.insertCell(3).innerHTML= element[3];
-    row.insertCell(4).innerHTML= newDate;
-    row.insertCell(5).innerHTML= element[5];
-    
-    row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
+
+    actualEmail=element[3];
+    const nullPath = await readNullImagePath();
+
+    const uploadTask= await uploadImage(actualEmail);
+
+
+
+        row.insertCell(0).innerHTML= '<td align="center"><img src=' 
+        + element[0]
+        + ' style="width:50px;border-radius: 50%;"></td>';
+        row.insertCell(1).innerHTML= element[1];
+        row.insertCell(2).innerHTML= element[2];
+        row.insertCell(3).innerHTML= element[3];
+        row.insertCell(4).innerHTML= newDate;
+        row.insertCell(5).innerHTML= element[5];
+        
+        row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
+        
     
 }
 function logShowArray(arr)
@@ -400,7 +406,7 @@ var loadFile = function(event){
     var reader = new FileReader();
     reader.onload = function()
         {
-            console.log(reader.result);
+           // console.log(reader.result);
             var output = document.getElementById('output');
             output.src = reader.result;
         };
@@ -440,6 +446,9 @@ var loadFile = function(event){
 
     var select = document.getElementById('sex');
     var sex_value = select.options[select.selectedIndex].value;
+
+    await uploadUrl(uploadTask,email);
+    const getlink=await getImage(email);
    //const profile_img=await uploadImage(email.value);
   
   //  console.log(profile_img);
@@ -456,7 +465,7 @@ var loadFile = function(event){
                   */
    // console.log(imgPath);
     
-    var array=[img_path,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value];
+    var array=[getlink,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
     //writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
    if(img_path=="http://127.0.0.1:5500/nullSource")
@@ -465,7 +474,7 @@ var loadFile = function(event){
     }
     else
     {
-        firestore_write(img_path,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value);
+        firestore_write(getlink,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value);
     }
     
     
@@ -495,8 +504,8 @@ var loadFile = function(event){
      config();
      onLoadImg();
      insertTable();
-     const profile_img=await getImage("dsadsaasdcom");
-     console.log(profile_img);
+   //  const profile_img=await getImage("dsadsaasdcom");
+   //  console.log(profile_img);
      const sortNume = document.getElementById('sortNume');
      const sortPrenume = document.getElementById('sortPrenume');
      const refresh = document.getElementById('refresh');
