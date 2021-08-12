@@ -18,15 +18,74 @@ var keyword;
 var dateFormat_start;
 var dateFormat_end;
 
+async function onLoad()
+ {
+   
+     createArray();
+     config();
+     onLoadImg();
+     refreshTable();
+ 
+   //  const profile_img=await getImage("dsadsaasdcom");
+   //  console.log(profile_img);
+     const sortNume = document.getElementById('sortNume');
+     const sortPrenume = document.getElementById('sortPrenume');
+     const refresh = document.getElementById('refresh');
+
+var clickCount = 0;
+
+sortNume.addEventListener('click', function() {
+    clickCount++;
+        if (clickCount === 1) {
+            singleClickTimer = setTimeout(function() {
+                clickCount = 0;
+                sortedAsc_Nume();
+            }, 200);
+        } else if (clickCount === 2) {
+            clearTimeout(singleClickTimer);
+            clickCount = 0;
+            sortedDesc_Nume();
+        }
+    }, false);
+ 
+ sortPrenume.addEventListener('click', function() {
+    clickCount++;
+        if (clickCount === 1) {
+            singleClickTimer = setTimeout(function() {
+                clickCount = 0;
+                sortedAsc_Prenume();
+            }, 200);
+        } else if (clickCount === 2) {
+            clearTimeout(singleClickTimer);
+            clickCount = 0;
+            sortedDesc_Prenume();
+        }
+    }, false);
+
+    refresh.addEventListener('click', function() {
+        clickCount++;
+            if (clickCount === 1) {
+                singleClickTimer = setTimeout(function() {
+                    clickCount = 0;
+                    refreshTable();
+                }, 200);
+            } else if (clickCount === 2) {
+                clearTimeout(singleClickTimer);
+                clickCount = 0;
+                reset();
+                alert("RESET!");
+            }
+        }, false);
+}
 
 function createArray()
 {
     myListofArrays = [];
     deletedArray=[];
-    trueArray=[];
+    
     
 }
-function firestore_write(img_path, nume, prenume,email,data,sex)
+function firestore_write(img_path, nume, prenume,email,data,sex,has_picture)
 {
     let db = firebase.firestore();
     var usersRef = db.collection("users");
@@ -37,66 +96,17 @@ function firestore_write(img_path, nume, prenume,email,data,sex)
         prenume:prenume,
         email: email,
         bday:data,
-        sex:sex
+        sex:sex,
+        has_picture
          });
        //  insertNullImage(img_path);
 
 }
-function resetSort()
-{
-    orderNumeAsc=false;
-    orderPrenumeAsc=false;
-    orderNumeDesc=false;
-    orderPrenumeDesc=false;
-}
-function reset(nr)
-{
-  console.log("reset"+nr);
-    var select = document.getElementById('sex_filter');
-    select.selectedIndex = 0;
-    var select2 = document.getElementById('has_picture');
-    select2.selectedIndex = 0;
-   
-   resetSort();
-    sex_rar=false;
-    sex_foarterar=false;
-    sex_des=false;
-    sex_virgin=false;
-    has_picture=false;
-    has_no_picture=false;
-    date_between_start=false;
-    date_between_end=false;
-    keyword_not_empty=false;
-}
-function sortedAsc_Nume()
-{
-    resetSort();
-    alert("Sorting by Nume ASC")
-    orderNumeAsc=true;
-}
-function sortedAsc_Prenume()
-{
-    resetSort();
-    alert("Sorting by Prenume ASC")
-    orderPrenumeAsc=true;
-}
-function sortedDesc_Nume()
-{
-    resetSort();
-    alert("Sorting by Nume DESC")
-    orderNumeDesc=true;
-}
-function sortedDesc_Prenume()
-{
-    resetSort();
-    alert("Sorting by Prenume DESC")
-    orderPrenumeDesc=true;
-}
+
 function functions_checker()
 {
     
     var search_keyword = document.getElementById("search_keyword");
-    
     
     var select = document.getElementById('sex_filter');
     var sex_value = select.options[select.selectedIndex].value;   //sex value selected
@@ -106,9 +116,6 @@ function functions_checker()
     var date_start = document.getElementById('date_start');
     var date_end = document.getElementById('date_end');
 
-   
-  
-    
     switch(sex_value)
     {
         case 'rar':
@@ -158,9 +165,6 @@ function functions_checker()
     }
      dateFormat_start = new Date(date_start.value);
      dateFormat_end = new Date(date_end.value);
- 
-
-   
    
 }
 function insertNullImage(img_path)
@@ -199,7 +203,7 @@ async function readNullImagePath()
 
   //->aici imi da undefined in loc sa-mi dea valoarea corect
 }
-async function insertTable()
+async function refreshTable()
 {   
    
     functions_checker();
@@ -277,31 +281,45 @@ async function insertTable()
         let end = new Date('9/10/2021');
         usersRef=usersRef.where('bday', '<', date_end);
     }
+    if(has_picture==true)
+    {
+        usersRef=usersRef.where("has_picture", "==", true);
+    }
+    if(has_no_picture==true)
+    {
+        usersRef=usersRef.where("has_picture", "==", false);
+    }
 
-    usersRef.get()
-    .then(snapshot => {
-    snapshot.forEach(async doc => {
-        const getlink=await getImage(doc.get("email"));
-        //addTableRows2(Object.values(doc.data()));
-        console.log("test"+getlink);
-        var array=[getlink,doc.get("nume"),doc.get("prenume"),doc.get("email"),doc.get("bday"),doc.get("sex")];
-  // console.log(doc.get("profile_picture"));
-         addTableRows2(array);
-         
-         if(doc.get("email")=="test@test.com")
-         {
+    let uref = await usersRef.get()
+    console.log('uref: ', uref)
+
+    for (doc of uref.docs) {
+        console.log('doc: ', doc)
+
+        if (doc) {
+            console.log('doc: ', doc)
+            console.log('doc email: ', doc.get("email"))
+            const email = doc.get("email")
+
+            if (email && email.length > 0) {
+               // const getLink = await getImage(email)
+
+                // if (getLink) {
+                    var array=[
+                        //getLink,
+                        doc.get("profile_picture"),
+                        doc.get("nume"),
+                        doc.get("prenume"),
+                        doc.get("email"),
+                        doc.get("bday"),
+                        doc.get("sex")];
             
-         //   console.log(doc.get("nume")+" "+doc.get("profile_picture"));
-         }
-    
-        //console.log(Object.values(doc.data()));
-    });
-  })
-  .catch(err => {
-    console.log('Error getting documents', err);
-  });
-  
-  //console.log(test);
+                    addTableRows2(array);
+               // }
+
+            }
+        }
+    }
 }
 
 async function addTableRows2(element)
@@ -370,11 +388,10 @@ async function addTableRows2(element)
 
 
     actualEmail=element[3];
-    const nullPath = await readNullImagePath();
+    // const nullPath = await readNullImagePath();
+    // const uploadTask= await uploadImage(actualEmail);
 
-    const uploadTask= await uploadImage(actualEmail);
-
-
+    console.log('image src: ', element[0])
 
         row.insertCell(0).innerHTML= '<td align="center"><img src=' 
         + element[0]
@@ -395,23 +412,7 @@ function logShowArray(arr)
         console.log(element[0]+" "+element[1]+" "+element[2]+" "+element[3]+" "+element[4]+" "+element[5]);
     });
 }
-function deleteRows()
-{
-    var table = document.getElementById("myTableData");
-while (table.rows.length > 1) {
-    table.deleteRow(1);
-  }
-}
-var loadFile = function(event){
-    var reader = new FileReader();
-    reader.onload = function()
-        {
-           // console.log(reader.result);
-            var output = document.getElementById('output');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
- };
+
  function resetInputs()
  {
  
@@ -431,13 +432,68 @@ var loadFile = function(event){
 
   
  }
-
- async function addRow()
+ function resetSort()
+{
+    orderNumeAsc=false;
+    orderPrenumeAsc=false;
+    orderNumeDesc=false;
+    orderPrenumeDesc=false;
+}
+function reset(nr)
+{
+  console.log("reset"+nr);
+    var select = document.getElementById('sex_filter');
+    select.selectedIndex = 0;
+    var select2 = document.getElementById('has_picture');
+    select2.selectedIndex = 0;
+   
+   resetSort();
+    sex_rar=false;
+    sex_foarterar=false;
+    sex_des=false;
+    sex_virgin=false;
+    has_picture=false;
+    has_no_picture=false;
+    date_between_start=false;
+    date_between_end=false;
+    keyword_not_empty=false;
+}
+function sortedAsc_Nume()
+{
+    resetSort();
+    alert("Sorting by Nume ASC")
+    orderNumeAsc=true;
+}
+function sortedAsc_Prenume()
+{
+    resetSort();
+    alert("Sorting by Prenume ASC")
+    orderPrenumeAsc=true;
+}
+function sortedDesc_Nume()
+{
+    resetSort();
+    alert("Sorting by Nume DESC")
+    orderNumeDesc=true;
+}
+function sortedDesc_Prenume()
+{
+    resetSort();
+    alert("Sorting by Prenume DESC")
+    orderPrenumeDesc=true;
+}
+async function uploadProfilePicture(email)
+{
+    const uploadTask=await uploadImage(email)
+    const upload=await uploadUrl(uploadTask,email);
+    return upload;
+}
+ async function addUser()
  {
-    const nullPath = await readNullImagePath();
+    
  
    
-    var img_path=document.getElementById("output").src
+    var img_path=document.getElementById("imgPreview").src
     var nume = document.getElementById("nume");
     var prenume = document.getElementById("prenume");
     var email = document.getElementById("email");
@@ -446,119 +502,50 @@ var loadFile = function(event){
 
     var select = document.getElementById('sex');
     var sex_value = select.options[select.selectedIndex].value;
+    
 
-    await uploadUrl(uploadTask,email);
-    const getlink=await getImage(email);
-   //const profile_img=await uploadImage(email.value);
+    const upload=await uploadProfilePicture(email.value);
+    if(upload==true){
+        
+     
+     
+            if(img_path=="")
+            {
+                const nullPath = await readNullImagePath();
+                firestore_write(nullPath,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value,'false');
+            }
+            else
+            {
+                console.log('trying to get image at line 506 with value: ', email.value)
+                const getlink=  await getImage(email.value);
+                if (getlink) {
+                    firestore_write(getlink,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value,'true');
+                }
+            }
   
-  //  console.log(profile_img);
-    
-   // console.log(pth);
-    /*
-    setTimeout(async function
-        (
-            
-            ){
-                 pth = await getImage(email.value);
-                  }, 2000);
-                  console.log(pth)
-                  */
-   // console.log(imgPath);
-    
-    var array=[getlink,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value];
-    myListofArrays.push(array);
-    //writeUserData(img_path,nume.value,prenume.value,email.value,new Date(newDate).toLocaleDateString(),sex_value,100);
-   if(img_path=="http://127.0.0.1:5500/nullSource")
-    {
-        firestore_write(nullPath,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value);
+        
     }
     else
-    {
-        firestore_write(getlink,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value);
-    }
+    alert("Upload unsuccesfull.Try again!");
     
+  
     
   
     deleteRows();
-    insertTable();
+    refreshTable();
     
     resetInputs();
-  //  console.log(img_path.src);
-  //  addTableRows(myListofArrays);
-  /*
-   var db = firebase.firestore();
-    var imgpathRef = db.collection("nullimage");
-    var nullimgpath="test";
  
-    imgpathRef.get("nullImage")
-    .then(snapshot => {
-    snapshot.forEach(doc => {
-        
-        nullimgpath=doc.get("profile_picture");
-  */
  }
- async function onLoad()
- {
-   
-     createArray();
-     config();
-     onLoadImg();
-     insertTable();
-   //  const profile_img=await getImage("dsadsaasdcom");
-   //  console.log(profile_img);
-     const sortNume = document.getElementById('sortNume');
-     const sortPrenume = document.getElementById('sortPrenume');
-     const refresh = document.getElementById('refresh');
 
-var clickCount = 0;
-
-sortNume.addEventListener('click', function() {
-    clickCount++;
-        if (clickCount === 1) {
-            singleClickTimer = setTimeout(function() {
-                clickCount = 0;
-                sortedAsc_Nume();
-            }, 200);
-        } else if (clickCount === 2) {
-            clearTimeout(singleClickTimer);
-            clickCount = 0;
-            sortedDesc_Nume();
-        }
-    }, false);
- 
- sortPrenume.addEventListener('click', function() {
-    clickCount++;
-        if (clickCount === 1) {
-            singleClickTimer = setTimeout(function() {
-                clickCount = 0;
-                sortedAsc_Prenume();
-            }, 200);
-        } else if (clickCount === 2) {
-            clearTimeout(singleClickTimer);
-            clickCount = 0;
-            sortedDesc_Prenume();
-        }
-    }, false);
-
-    refresh.addEventListener('click', function() {
-        clickCount++;
-            if (clickCount === 1) {
-                singleClickTimer = setTimeout(function() {
-                    clickCount = 0;
-                    insertTable();
-                }, 200);
-            } else if (clickCount === 2) {
-                clearTimeout(singleClickTimer);
-                clickCount = 0;
-                reset();
-                alert("RESET!");
-            }
-        }, false);
+function deleteRows()
+{
+    var table = document.getElementById("myTableData");
+    while (table.rows.length > 1) 
+    {
+        table.deleteRow(1);
+    }
 }
-//--sort event handlers
- 
-
-
 function deleteRow(row) {
     let db = firebase.firestore();
     var currentRow=$(row).closest("tr"); 
@@ -573,8 +560,5 @@ function deleteRow(row) {
     }).catch((error) => {
         console.error("Error removing document: ", error);
     });
-  
-
-    
     
 }
