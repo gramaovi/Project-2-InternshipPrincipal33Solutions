@@ -13,7 +13,7 @@ function onLoadImg()
             reader=new FileReader();
             reader.onload=function()
             {
-                console.log(reader.result);
+               
                 document.getElementById("imgPreview").src = reader.result;
             }
             reader.readAsDataURL(files[0]);
@@ -22,44 +22,68 @@ function onLoadImg()
     
     }
 }
-function uploadImage(email)
-{
-
-  
-    document.getElementById('addData').onclick=function(){
-
-        var uploadTask=firebase.storage().ref('ProfilePicture/'+email+".png").put(files[0]);
-        uploadTask.on('state_changed',function(snapshot)
-        {
+async function uploadImage(mystring)
+{  
+    var email=mystring;
+    email=email.replace('@','');
+    email=email.replace('.','');
+    
+    
+     var uploadTask=firebase.storage().ref('ProfilePicture/'+email+".png").put(files[0]);
+         uploadTask.on('state_changed', function(snapshot)
+        { 
             var progress=(snapshot.bytesTransferred / snapshot.totalBytes)*100;
             document.getElementById('upProgress').innerHTML='Uploaded' + progress +"%";
         },
-        function(error)
+          function(error)
         {
             alert("Error save");
         },
-        function()
+          function()
         {
-            uploadTask.snapshot.ref.getDownloadURL().then(function(url)
+          uploadTask.snapshot.ref.getDownloadURL().then( async url =>
             {
-                ImgUrl=url;
+
+                const ImgUrl=await url;
+                console.log(ImgUrl);
+                
+                var db = firebase.firestore();
+                var usersRef = db.collection("Pictures");
+                usersRef.doc("ProfilePicture").set({
+                    email:email,
+                    profile_picture:ImgUrl
+                     });
             
-                firebase.database().ref('Picture/'+ImgName).set(
-                {
-                    Name:email,
-                    Link:ImgUrl
-                });
+            
                 alert("Image added succesfully");
             });
         });
-    }
+    return  ImgUrl;
 
 }
-async function getImage(email)
+async function getImage(mystring)
 {
-    fdb=firebase.database()
-    await fdb.ref('ProfilePicture/'+email).on('value', function(snapshot){
-        return snapshot.val().Link;
+    var email=mystring;
+    email=email.replace('@','');
+    email=email.replace('.','');
+    var db = firebase.firestore();
+    
+    var imgpathRef =await  db.collection("Pictures").where("email","==",email);
+    
+     imgpathRef.get("ProfilePicture")
+    
+    .then(snapshot => {
+    snapshot.forEach(doc => {
+       
+        nullimgpath=doc.get("profile_picture");
+        console.log(nullimgpath);
     });
+    })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
+
+    
+    
 }
    

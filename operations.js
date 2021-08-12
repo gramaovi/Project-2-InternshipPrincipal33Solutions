@@ -290,7 +290,7 @@ var test;
          if(doc.get("email")=="test@test.com")
          {
             
-            console.log(doc.get("nume")+" "+doc.get("profile_picture"));
+         //   console.log(doc.get("nume")+" "+doc.get("profile_picture"));
          }
     
         //console.log(Object.values(doc.data()));
@@ -367,9 +367,10 @@ var table = document.getElementById("myTableData");
     var row = table.insertRow(rowCount);
 
 const nullPath = await readNullImagePath();
+actualEmail=element[3];
+//setTimeout(function(){ console.log(getImage(actualEmail)); }, 5000);
 
-function adaugare()
-{
+
     row.insertCell(0).innerHTML= '<td align="center"><img src=' 
     + element[0]
     + ' style="width:50px;border-radius: 50%;"></td>';
@@ -378,29 +379,9 @@ function adaugare()
     row.insertCell(3).innerHTML= element[3];
     row.insertCell(4).innerHTML= newDate;
     row.insertCell(5).innerHTML= element[5];
-    actualEmail=element[3];
+    
     row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
     
-}
-if(element[0]!=nullPath && has_picture==true && has_no_picture==false)
-{
-  adaugare();
-  
-
-}
-else
-if(element[0]==nullPath && has_no_picture==true && has_picture==false)
-{
-    adaugare();
-    
-}
-else
-if(has_no_picture==false && has_picture==false)
-{
-  adaugare();
-  
-}
-     
 }
 function logShowArray(arr)
 {
@@ -448,7 +429,7 @@ var loadFile = function(event){
  async function addRow()
  {
     const nullPath = await readNullImagePath();
-    
+ 
    
     var img_path=document.getElementById("output").src
     var nume = document.getElementById("nume");
@@ -459,10 +440,21 @@ var loadFile = function(event){
 
     var select = document.getElementById('sex');
     var sex_value = select.options[select.selectedIndex].value;
+   //const profile_img=await uploadImage(email.value);
+  
+  //  console.log(profile_img);
     
-    uploadImage(email.value);
-    const imgPath = await getImage();
-    console.log(imgPath);
+   // console.log(pth);
+    /*
+    setTimeout(async function
+        (
+            
+            ){
+                 pth = await getImage(email.value);
+                  }, 2000);
+                  console.log(pth)
+                  */
+   // console.log(imgPath);
     
     var array=[img_path,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value];
     myListofArrays.push(array);
@@ -496,13 +488,15 @@ var loadFile = function(event){
         nullimgpath=doc.get("profile_picture");
   */
  }
- function onLoad()
+ async function onLoad()
  {
-    
+   
      createArray();
      config();
      onLoadImg();
      insertTable();
+     const profile_img=await getImage("dsadsaasdcom");
+     console.log(profile_img);
      const sortNume = document.getElementById('sortNume');
      const sortPrenume = document.getElementById('sortPrenume');
      const refresh = document.getElementById('refresh');
