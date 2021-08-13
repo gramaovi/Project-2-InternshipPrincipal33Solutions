@@ -120,34 +120,34 @@ function functions_checker()
     {
         case 'rar':
             sex_rar=true;
-           // default:sex_rar=false;
-            return;
+            break;
+            
         case 'foarterar':
             sex_foarterar=true;
-            //default:sex_foarterar=false;
-            return;
+            break;
+         
         case 'des':
             sex_des=true;
-            //default:sex_des=false;
-            return;
-        case 'virgin':
+            break;
+            
+         case 'virgin':  
             sex_virgin=true;
-           // default:sex_virgin=false;
-            return;
+            break;
+
+
     }
     
   
     switch(has_picture_value)
     {
-
         case 'with_p':
             has_picture=true;
-          //  default:has_picture=false;
-            return;
+            break;
+            
         case 'without_p':
             has_no_picture=true;
-           // default:has_no_picture=false;
-            return;
+            break;
+
     }
    // alert(has_picture_value);
     if(search_keyword.value.length>0)
@@ -155,16 +155,17 @@ function functions_checker()
         keyword_not_empty=true;
         keyword=search_keyword.value;
     }
-    if(date_start.value!=null)
+    if(date_start.value!="")
     {
-       // date_between_start=true;
+    
+        date_between_start=true;
     }
-    if(date_end.value!=null)
+    if(date_end.value!="")
     {
-     //   date_between_end=true;
+        date_between_end=true;
     }
-     dateFormat_start = new Date(date_start.value);
-     dateFormat_end = new Date(date_end.value);
+     //console.log(date_start.value) ;
+    // dateFormat_end = new Date(date_end.value);
    
 }
 function insertNullImage(img_path)
@@ -205,29 +206,16 @@ async function readNullImagePath()
 }
 async function refreshTable()
 {   
-   
+    var date_start = document.getElementById('date_start');
+    var date_end = document.getElementById('date_end');
     functions_checker();
     var db = firebase.firestore();
     deleteRows();
-    //orderAsc=true;
+    
     var imgpathRef = db.collection("nullimage");
 
     var usersRef = db.collection("users")
 
-    /*
-    if(has_picture==true)
-    {
-        const nullPath = await readNullImagePath();
-        console.log(nullPath);
-        usersRef=usersRef.where('profile_picture','==', nullPath); 
-    }
-    if(has_no_picture==true)
-    {
-        const nullPath = await readNullImagePath();
-
-        usersRef=usersRef.where('profile_picture','!=', nullPath);
-    }
-*/
     if(orderNumeDesc==true)
     {
         usersRef=usersRef.orderBy('nume','desc');
@@ -244,8 +232,6 @@ async function refreshTable()
     {
         usersRef=usersRef.orderBy('prenume','asc');
     }
-    
- //   console.log(orderNumeAsc+" "+orderNumeDesc+" "+orderPrenumeAsc+" "+orderPrenumeDesc)
     if(sex_rar==true)
     {
         usersRef=usersRef.where("sex", "==", 'rar');
@@ -271,39 +257,45 @@ async function refreshTable()
     }
     if(date_between_start==true)
     {
-        let start = new Date('7/10/2021');
        
-        usersRef=usersRef.where('bday', '>', date_start);
+       var secs=new Date(date_start.value).getTime()/1000;
+      
+       usersRef=usersRef.where('bday', '>', secs);
         
     }
     if(date_between_end==true)
     {
-        let end = new Date('9/10/2021');
-        usersRef=usersRef.where('bday', '<', date_end);
+        var secs=new Date(date_end.value).getTime()/1000;
+      
+        usersRef=usersRef.where('bday', '<', secs);
     }
+
     if(has_picture==true)
     {
-        usersRef=usersRef.where("has_picture", "==", true);
+        usersRef=usersRef.where("has_picture", "==", 'true');
+        
     }
     if(has_no_picture==true)
     {
-        usersRef=usersRef.where("has_picture", "==", false);
+        usersRef=usersRef.where("has_picture", "==", 'false');
     }
-
+   //console.log(has_picture+"sex "+sex_des);
     let uref = await usersRef.get()
-    console.log('uref: ', uref)
+    // console.log('uref: ', uref)
 
     for (doc of uref.docs) {
-        console.log('doc: ', doc)
+        // console.log('doc: ', doc)
 
         if (doc) {
-            console.log('doc: ', doc)
-            console.log('doc email: ', doc.get("email"))
+            
+            // console.log('doc: ', doc)
+            // console.log('doc email: ', doc.get("email"))
             const email = doc.get("email")
 
             if (email && email.length > 0) {
                // const getLink = await getImage(email)
-
+               //if(new Date(doc.get("bday")) > new Date(date_start.value))
+            //console.log("sds"+ new Date(doc.get("bday")));
                 // if (getLink) {
                     var array=[
                         //getLink,
@@ -320,11 +312,12 @@ async function refreshTable()
             }
         }
     }
+    reset();
 }
 
 async function addTableRows2(element)
 {
-    var dateFormat = new Date(element[4]);
+    var dateFormat = new Date(element[4]*1000);
     var month = dateFormat.getMonth()+1;
     var day=dateFormat.getDate();
     var year=dateFormat.getFullYear();
@@ -340,6 +333,7 @@ async function addTableRows2(element)
      }  
      else{
          */
+       
     switch(month){
         case 1:
             month="Ianuarie";
@@ -391,7 +385,7 @@ async function addTableRows2(element)
     // const nullPath = await readNullImagePath();
     // const uploadTask= await uploadImage(actualEmail);
 
-    console.log('image src: ', element[0])
+    // console.log('image src: ', element[0])
 
         row.insertCell(0).innerHTML= '<td align="center"><img src=' 
         + element[0]
@@ -403,7 +397,7 @@ async function addTableRows2(element)
         row.insertCell(5).innerHTML= element[5];
         
         row.insertCell(6).innerHTML= '<input type="button" style="border-radius: 35%;" value = " X " onClick="Javacsript:deleteRow(this)">';
-        
+
     
 }
 function logShowArray(arr)
@@ -424,7 +418,7 @@ function logShowArray(arr)
     var img_path=document.getElementById("output");
     //img_path.src="nullSource";
    // img_path.value="";
-    data.value="2028-04-04";
+    data.value="";
     select.selectedIndex = 0;
     nume.value="";
     prenume.value="";
@@ -439,13 +433,14 @@ function logShowArray(arr)
     orderNumeDesc=false;
     orderPrenumeDesc=false;
 }
-function reset(nr)
+function reset()
 {
-  console.log("reset"+nr);
+  
     var select = document.getElementById('sex_filter');
     select.selectedIndex = 0;
     var select2 = document.getElementById('has_picture');
     select2.selectedIndex = 0;
+
    
    resetSort();
     sex_rar=false;
@@ -457,6 +452,13 @@ function reset(nr)
     date_between_start=false;
     date_between_end=false;
     keyword_not_empty=false;
+}
+function date_start()
+{
+    date_between_start=true;
+}
+function datE_end(){
+    date_between_end=true;
 }
 function sortedAsc_Nume()
 {
@@ -499,7 +501,7 @@ async function uploadProfilePicture(email)
     var email = document.getElementById("email");
     var data = document.getElementById("date");
     
-
+    var secs=new Date(data.value).getTime()/1000;
     var select = document.getElementById('sex');
     var sex_value = select.options[select.selectedIndex].value;
     
@@ -512,14 +514,15 @@ async function uploadProfilePicture(email)
             if(img_path=="")
             {
                 const nullPath = await readNullImagePath();
-                firestore_write(nullPath,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value,'false');
+                firestore_write(nullPath,nume.value,prenume.value,email.value,secs,sex_value,'false');
             }
             else
             {
-                console.log('trying to get image at line 506 with value: ', email.value)
-                const getlink=  await getImage(email.value);
+                // console.log('trying to get image at line 506 with value: ', email.value)
+                const getlink = await getImage(email.value);
                 if (getlink) {
-                    firestore_write(getlink,nume.value,prenume.value,email.value,new Date(data.value).toLocaleDateString(),sex_value,'true');
+              
+                    firestore_write(getlink,nume.value,prenume.value,email.value,secs,sex_value,'true');
                 }
             }
   

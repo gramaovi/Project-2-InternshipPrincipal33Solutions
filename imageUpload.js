@@ -33,7 +33,7 @@ return uploadTask;
 }
 async function uploadUrl(uploadTask,mystring)
 {
-    console.log('uploadtask: ', uploadTask)
+    // console.log('uploadtask: ', uploadTask)
  const url=await uploadTask.ref.getDownloadURL()
 
     
@@ -46,7 +46,7 @@ async function uploadUrl(uploadTask,mystring)
     
     
         alert("Image added succesfully");
-console.log("upload->!!!!!")
+// console.log("upload->!!!!!")
     return true;
     
 }
