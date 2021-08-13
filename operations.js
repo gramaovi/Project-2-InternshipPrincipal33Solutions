@@ -24,6 +24,8 @@ async function onLoad()
      createArray();
      config();
      onLoadImg();
+     const nullPath = await readNullImagePath();
+     document.getElementById("imgPreview").src=nullPath;
      refreshTable();
  
    //  const profile_img=await getImage("dsadsaasdcom");
@@ -290,7 +292,7 @@ async function refreshTable()
             
             // console.log('doc: ', doc)
             // console.log('doc email: ', doc.get("email"))
-            const email = doc.get("email")
+            const email = await doc.get("email")
 
             if (email && email.length > 0) {
                // const getLink = await getImage(email)
@@ -321,19 +323,8 @@ async function addTableRows2(element)
     var month = dateFormat.getMonth()+1;
     var day=dateFormat.getDate();
     var year=dateFormat.getFullYear();
-    /*
-    if(document.getElementById("nume").value.length == 0 ||
-    document.getElementById("prenume").value.length == 0 ||
-    document.getElementById("email").value.length == 0 ||
-    document.getElementById("date").value=="2028-04-04"||
-    document.getElementById("output").src=="http://127.0.0.1:5500/nullSource"||
-    sex_value=="")
-     {
-         alert("Complete all fields!");
-     }  
-     else{
-         */
-       
+   
+  
     switch(month){
         case 1:
             month="Ianuarie";
@@ -407,7 +398,7 @@ function logShowArray(arr)
     });
 }
 
- function resetInputs()
+ async function resetInputs()
  {
  
     var nume = document.getElementById("nume");
@@ -415,7 +406,8 @@ function logShowArray(arr)
     var email = document.getElementById("email");
     var select = document.getElementById('sex');
     var data = document.getElementById("date");
-    var img_path=document.getElementById("output");
+    const nullPath = await readNullImagePath();
+     document.getElementById("imgPreview").src=nullPath;
     //img_path.src="nullSource";
    // img_path.value="";
     data.value="";
@@ -440,8 +432,10 @@ function reset()
     select.selectedIndex = 0;
     var select2 = document.getElementById('has_picture');
     select2.selectedIndex = 0;
-
-   
+    var date_start = document.getElementById('date_start');
+    var date_end = document.getElementById('date_end');
+   date_start.value="";
+   date_end.value="";
    resetSort();
     sex_rar=false;
     sex_foarterar=false;
@@ -451,6 +445,7 @@ function reset()
     has_no_picture=false;
     date_between_start=false;
     date_between_end=false;
+    
     keyword_not_empty=false;
 }
 function date_start()
@@ -493,8 +488,8 @@ async function uploadProfilePicture(email)
  async function addUser()
  {
     
- 
-   
+  
+  
     var img_path=document.getElementById("imgPreview").src
     var nume = document.getElementById("nume");
     var prenume = document.getElementById("prenume");
@@ -505,41 +500,46 @@ async function uploadProfilePicture(email)
     var select = document.getElementById('sex');
     var sex_value = select.options[select.selectedIndex].value;
     
-
-    const upload=await uploadProfilePicture(email.value);
-    if(upload==true){
-        
-     
-     
-            if(img_path=="")
-            {
-                const nullPath = await readNullImagePath();
-                firestore_write(nullPath,nume.value,prenume.value,email.value,secs,sex_value,'false');
-            }
-            else
-            {
-                // console.log('trying to get image at line 506 with value: ', email.value)
-                const getlink = await getImage(email.value);
-                if (getlink) {
-              
-                    firestore_write(getlink,nume.value,prenume.value,email.value,secs,sex_value,'true');
-                }
-            }
-  
-        
+    if(data.value=="" || nume.value.length==0 ||prenume.value.length==0||email.value.length==0||sex_value=="")
+    {
+        alert("Complete all fields");
     }
     else
-    alert("Upload unsuccesfull.Try again!");
+    {
+        const upload=await uploadProfilePicture(email.value);
+        if(upload==true){
+            
+        
+            const nullPath = await readNullImagePath();
+                if(img_path==nullPath)
+                {
+                    
+                    firestore_write(nullPath,nume.value,prenume.value,email.value,secs,sex_value,'false');
+                }
+                else
+                {
+                    // console.log('trying to get image at line 506 with value: ', email.value)
+                    const getlink = await getImage(email.value);
+                    if (getlink) {
+                
+                        firestore_write(getlink,nume.value,prenume.value,email.value,secs,sex_value,'true');
+                    }
+                }
     
-  
+            
+        }
+        else
+        alert("Upload unsuccesfull.Try again!");
     
-  
+
     deleteRows();
-    refreshTable();
+    await refreshTable();
     
     resetInputs();
- 
- }
+
+    }
+
+}
 
 function deleteRows()
 {
